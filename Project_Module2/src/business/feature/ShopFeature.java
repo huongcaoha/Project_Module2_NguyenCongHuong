@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ShopFeature {
     public static void displayList(String[] args ,List<Product> products){
@@ -162,9 +163,12 @@ public class ShopFeature {
                                     }else {
                                         listCarts.get(index).setQuantity(listCarts.get(index).getQuantity()+quantity);
                                     }
+
                                     boolean result = IMethod.saveDatabase("listProductCart.txt",listCarts);
                                     if(result){
                                         System.out.println("Add to cart successfully !");
+                                        products1.get(index).setInventory(products1.get(index).getInventory()-quantity);
+                                        IMethod.saveDatabase(IMethod.fileProduct,products1);
                                     }else {
                                         System.err.println("Add to cart error !");
                                     }
@@ -250,5 +254,119 @@ public class ShopFeature {
            }
 
         }
+    }
+
+    public static void viewCart(Customer customer){
+        List<Customer> checkLogin = IMethod.checkLogin();
+        if(checkLogin.getFirst() == null){
+            System.err.println("Please log in first !");
+        }else {
+           while (true){
+               List<ProductCart> productCarts =IMethod.listProductCart().stream().filter(productCart -> Objects.equals(productCart.getCustomerId(), customer.getCustomerId())).toList();
+               if(productCarts.isEmpty()){
+                   System.err.println("Cart empty !");
+                   break;
+               }else {
+                   int currentPage = 1 ;
+                   int itemPerPage = 5 ;
+                   int totalPage = (int) Math.ceil((double) productCarts.size() /itemPerPage);
+                   int skip = (currentPage -1 ) * itemPerPage ;
+                   int size = productCarts.size();
+                   NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
+                   System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                   System.out.println("|                                                             CART                                                                |");
+                   System.out.println("|━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━|");
+                   System.out.printf("| %-3s | %-28s | %-13s | %-8s | %-8s | %-13s | %-13s | %-20s |\n","ID","Product Name","finalPrice","CateId","Quantity","Size","Color","TotalMoney");
+                   System.out.println("|━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━|");
+                   int sumMoney = 0 ;
+                   for(ProductCart productCart : productCarts){
+                       sumMoney += productCart.getTotalMoney();
+                   }
+                   for(int i = skip ; i < (skip + itemPerPage) ; i++){
+                       if(i < size){
+                           productCarts.get(i).displayData();
+                       }else {
+                           break;
+                       }
+                   }
+                   StringBuilder pagination = new StringBuilder();
+                   int startPage = Math.max(currentPage - 2, 1);
+                   int endPage = Math.min(currentPage + 2, totalPage);
+                   for(int i = startPage ; i <= endPage ; i++){
+                       if(currentPage == i){
+                           pagination.append(GetColor.RED +"["+ i +"]"+ GetColor.RESET) ;
+                       }else {
+                           pagination.append("[" + i + "]") ;
+                       }
+
+                       pagination.append("     ");
+
+                   }
+                   String rs ="|";
+                   int spaceStart = (146 - (pagination.length())) / 2 ;
+                   int spaceEnd = (146 - pagination.length()) - spaceStart ;
+                   for(int j = 1 ; j <= spaceStart ; j++){
+                       rs += " ";
+                   }
+                   rs = rs.concat(pagination.toString());
+                   for(int j = 1 ; j <= spaceEnd ; j++){
+                       rs += " ";
+                   }
+                   rs += "|";
+                   System.out.println(rs);
+                   System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+                   System.out.printf("|                                                                                     Total money : %-29s |\n",format.format(sumMoney)+" VNĐ");
+                   System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+                   System.out.println("|             1. Previous                   |              2. Back                        |               3. Next                 |");
+                   System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+                   System.out.println("|                      4. Update product cart                        |                        5. Delete one product               |");
+                   System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+                   System.out.println("|                      6. Delete all product                         |                        7. Proceed to order                 |");
+                   System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+
+
+                   int choice = IMethod.getNumber("Enter your choice : ");
+                   switch (choice){
+                       case 1 : {
+                           if(currentPage > 1){
+                               currentPage--;
+                               skip = (currentPage -1 ) * itemPerPage ;
+                           }else {
+                               System.err.println("Cannot previous !");
+                           }
+                           break;
+                       }
+                       case 2 : {
+                           return;
+                       }
+                       case 3 : {
+                           if(currentPage < totalPage){
+                               currentPage++;
+                               skip = (currentPage -1 ) * itemPerPage ;
+                           }else {
+                               System.err.println("Cannot next !");
+                           }
+                           break;
+                       }
+                       case 4 : {
+                           break;
+                       }
+                       case 5 : {
+                           break;
+                       }
+                       case 6 : {
+                           break;
+                       }
+                       case 7 : {
+                           break;
+                       }
+                       default: {
+                           System.err.println("Enter choice from 1 to 6 !");
+                       }
+                   }
+               }
+           }
+        }
+
     }
 }

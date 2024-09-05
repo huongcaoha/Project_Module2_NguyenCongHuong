@@ -5,8 +5,10 @@ import business.common.IMethod;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductCart implements Serializable {
     private Integer productCartId ;
@@ -117,8 +119,9 @@ public class ProductCart implements Serializable {
     }
 
     public void displayData(){
-        System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓");
-        System.out.printf("| %-3d | %-28s | %-14.1f | %-8d | %-8d | %-13s | %-13s | %-14.1f  |\n",productCartId,productName,finalPrice,cateId,quantity,size,color,totalMoney);
-        System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┛");
+        NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
+        System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓");
+        System.out.printf("| %-3d | %-28s | %-13.1f | %-8d | %-8d | %-13s | %-13s | %-20s |\n",productCartId,productName,finalPrice,cateId,quantity,size,color,format.format(totalMoney)+"VNĐ");
+        System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛");
     }
 }

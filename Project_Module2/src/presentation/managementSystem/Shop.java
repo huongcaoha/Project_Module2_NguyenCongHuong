@@ -9,10 +9,9 @@ import java.util.List;
 
 public class Shop {
     public static void main(String[] args) {
-        String fileCheckLogin = "checkLogin.txt";
-        List<Customer> checkLogin = IMethod.getListObject(fileCheckLogin);
-
         while (true){
+            String fileCheckLogin = "checkLogin.txt";
+            List<Customer> checkLogin = IMethod.getListObject(fileCheckLogin);
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.printf("|   Hello , %-28s |\n",checkLogin.getFirst() == null ? "Customer !" : checkLogin.getFirst().getCustomerName() + " !");
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━ SHOPPING ━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
@@ -36,7 +35,7 @@ public class Shop {
                     break;
                 }
                 case 3 : {
-
+                ShopFeature.viewCart(checkLogin.getFirst());
                     break;
                 }
                 case 4 : {
