@@ -1,0 +1,61 @@
+package presentation.managementSystem;
+
+import business.common.IMethod;
+import business.entity.Customer;
+import business.feature.ShopFeature;
+import presentation.run.Main;
+
+import java.util.List;
+
+public class Shop {
+    public static void main(String[] args) {
+        String fileCheckLogin = "checkLogin.txt";
+        List<Customer> checkLogin = IMethod.getListObject(fileCheckLogin);
+
+        while (true){
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.printf("|   Hello , %-28s |\n",checkLogin.getFirst() == null ? "Customer !" : checkLogin.getFirst().getCustomerName() + " !");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━ SHOPPING ━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|                                        |                                    |                                        |");
+            System.out.println("|        1. Display list products        |    2. View personal information    |              3. View cart              |");
+            System.out.println("|                                        |                                    |                                        |");
+            System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+            System.out.println("|                                        |                                    |                                        |");
+            System.out.println("|        4. Orders history               |          5. Favorites list         |               6. Logout                |");
+            System.out.println("|                                        |                                    |                                        |");
+            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+
+            int choice = IMethod.getNumber("Enter choice : ");
+            switch (choice){
+                case 1 : {
+                    ShopFeature.displayList(args,IMethod.listProduct());
+                    break;
+                }
+                case 2 : {
+                ShopFeature.viewInformation();
+                    break;
+                }
+                case 3 : {
+
+                    break;
+                }
+                case 4 : {
+
+                    break;
+                }
+                case 5 : {
+
+                    break;
+                }
+                case 6 : {
+                    IMethod.logout();
+                    Main.main(args);
+                    break;
+                }
+                default: {
+                    System.err.println("Enter choice from 1 to 6 !");
+                }
+            }
+        }
+    }
+}

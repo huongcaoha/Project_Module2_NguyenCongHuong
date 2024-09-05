@@ -1,0 +1,109 @@
+package business.feature;
+
+import business.MyInterface.ICRUD;
+import business.common.IMethod;
+import business.entity.ProductCart;
+import business.util.GetColor;
+
+import java.util.List;
+
+public class ProductCartFeature implements ICRUD <ProductCart> {
+    @Override
+    public void displayList(List<ProductCart> productCarts) {
+        int currentPage = 1 ;
+        int itemPerPage = 5 ;
+        int totalPage = (int) Math.ceil((double) productCarts.size() /itemPerPage);
+        int skip = (currentPage -1 ) * itemPerPage ;
+        int size = productCarts.size();
+        if(productCarts.isEmpty()){
+            System.err.println("List products cart is empty !");
+        }else {
+            while (true){
+                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println("|                                                         CARTS PRODUCT                                                    |");
+                System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓");
+                System.out.printf("| %-3s | %-28s | %-13s | %-8s | %-8s | %-13s | %-13s | %-13s  |\n","ID","Product Name","Price","CateId","Quantity","Size","Color","TotalMoney");
+                System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┛");
+                for(int i = skip ; i < (skip + itemPerPage) ; i++){
+                    if(i < size){
+                        productCarts.get(i).displayData();
+                    }else {
+                        break;
+                    }
+                }
+                StringBuilder pagination = new StringBuilder();
+                int startPage = Math.max(currentPage - 2, 1);
+                int endPage = Math.min(currentPage + 2, totalPage);
+                for(int i = startPage ; i <= endPage ; i++){
+                    if(currentPage == i){
+                        pagination.append(GetColor.RED + "[").append(i).append("]").append(GetColor.RESET);
+                    }else {
+                        pagination.append("[").append(i).append("]");
+                    }
+
+                    pagination.append("     ");
+
+                }
+                String rs ="|";
+                int spaceStart = (122 - (pagination.length())) / 2 ;
+                int spaceEnd = (122 - pagination.length()) - spaceStart ;
+                for(int j = 1 ; j <= spaceStart ; j++){
+                    rs += " ";
+                }
+                rs = rs.concat(pagination.toString());
+                for(int j = 1 ; j <= spaceEnd ; j++){
+                    rs += " ";
+                }
+                rs += "|";
+                System.out.println(rs);
+                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println("|               1. Previous               |                   2. Back                |              3. Next                |");
+                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
+
+                int choice = IMethod.getNumber("Enter choice : ");
+                switch (choice){
+                    case 1 : {
+                        if(currentPage > 1){
+                            currentPage--;
+                            skip = (currentPage -1 ) * itemPerPage ;
+                        }else {
+                            System.err.println("Cannot previous !");
+                        }
+                        break;
+                    }
+                    case 2 : {
+                        return;
+                    }
+                    case 3 : {
+                        if(currentPage < totalPage){
+                            currentPage++;
+                            skip = (currentPage -1 ) * itemPerPage ;
+                        }else {
+                            System.err.println("Cannot next !");
+                        }
+                        break;
+                    }
+                    default: {
+                        System.out.println("Choice invalid !");
+                    }
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public boolean add() {
+        return false;
+    }
+
+    @Override
+    public boolean update() {
+        return false;
+    }
+
+    @Override
+    public boolean delete() {
+        return false;
+    }
+}
