@@ -108,6 +108,7 @@ public class ProductCart implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+        this.totalMoney = quantity*this.finalPrice;
     }
 
     public Double getTotalMoney() {
@@ -121,7 +122,7 @@ public class ProductCart implements Serializable {
     public void displayData(){
         NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
         System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓");
-        System.out.printf("| %-3d | %-28s | %-13.1f | %-8d | %-8d | %-13s | %-13s | %-20s |\n",productCartId,productName,finalPrice,cateId,quantity,size,color,format.format(totalMoney)+"VNĐ");
+        System.out.printf("| %-3d | %-28s | %-13s | %-8d | %-8d | %-13s | %-13s | %-20s |\n",productCartId,productName,format.format(finalPrice)+"VNĐ",cateId,quantity,size,color,format.format(totalMoney)+"VNĐ");
         System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛");
     }
 }
