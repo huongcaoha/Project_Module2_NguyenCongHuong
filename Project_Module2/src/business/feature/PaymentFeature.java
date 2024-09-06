@@ -2,29 +2,29 @@ package business.feature;
 
 import business.common.IMethod;
 import business.entity.Customer;
+import business.entity.Order;
 import business.entity.Product;
 import business.entity.ProductCart;
 import business.util.GetColor;
+import presentation.managementSystem.Shop;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
-public class CartFeature {
-    public static void viewCart(Customer customer){
+public class PaymentFeature {
+    public static void paymentPage(List<ProductCart> productCarts,boolean deleteCart){
         List<Customer> checkLogin = IMethod.checkLogin();
         if(checkLogin.getFirst() == null){
             System.err.println("Please log in first !");
         }else {
-            List<ProductCart> productCarts =IMethod.listProductCart().stream().filter(productCart -> Objects.equals(productCart.getCustomerId(), customer.getCustomerId())).toList();
+            Customer customer = checkLogin.getFirst();
             int currentPage = 1 ;
             int itemPerPage = 5 ;
             while (true){
                 int skip = (currentPage -1 ) * itemPerPage ;
                 int totalPage = (int) Math.ceil((double) productCarts.size() /itemPerPage);
                 int size = productCarts.size();
-                productCarts =IMethod.listProductCart().stream().filter(productCart -> Objects.equals(productCart.getCustomerId(), customer.getCustomerId())).toList();
                 int sumMoney = 0 ;
                 for(ProductCart productCart : productCarts){
                     sumMoney += productCart.getTotalMoney();
@@ -46,6 +46,60 @@ public class CartFeature {
                             break;
                         }
                         case 2 : {
+                            String phoneNumber ;
+                            String address ;
+                            String customerName ;
+                            while (true){
+                                System.out.println("Enter the consignee's name : ");
+                                customerName = IMethod.scanner.nextLine().trim();
+                                if(customerName.isEmpty()){
+                                    System.err.println("Cannot be left blank !");
+                                }else {
+                                    break;
+                                }
+                            }
+
+                            while (true){
+                                System.out.println("Enter address : ");
+                                address = IMethod.scanner.nextLine().trim();
+                                if(address.isEmpty()){
+                                    System.err.println("Cannot be left blank !");
+                                }else {
+                                    break;
+                                }
+                            }
+
+                            while (true){
+                                System.out.println("Enter phone number : ");
+                                phoneNumber = IMethod.scanner.nextLine().trim();
+                                if(phoneNumber.matches("^0[35789][0-9]{8}$")){
+                                    break;
+                                }else {
+                                    System.err.println("Phone number invalid !");
+                                }
+                            }
+                            int customerId = IMethod.checkLogin().getFirst().getCustomerId();
+                            Order order = new Order(customerName,customerId,phoneNumber,address,productCarts, (double) sumMoney);
+                            List<Order> orders = IMethod.listOrder();
+                            orders.add(order);
+                            IMethod.saveDatabase(IMethod.fileOrder,orders);
+                            List<Product> products = IMethod.listProduct();
+                            for(ProductCart pro : productCarts){
+                                int indexProduct = products.stream().map(Product::getProductName).toList().indexOf(pro.getProductName());
+                                products.get(indexProduct).setInventory(products.get(indexProduct).getInventory()-pro.getQuantity());
+                            }
+                            IMethod.saveDatabase(IMethod.fileProduct,products);
+
+                            List<ProductCart> totalProductCart = IMethod.listProductCart();
+                            if(deleteCart){
+                                for(int i = 0 ; i < totalProductCart.size() ; i++){
+                                   if(totalProductCart.get(i).getCustomerId() == customerId){
+                                       totalProductCart.remove(i);
+                                   }
+                                }
+                                IMethod.saveDatabase(IMethod.fileProductCart,totalProductCart);
+                            }
+                            System.out.println("Order successful !");
                             return;
                         }
                         case 3 : {
@@ -58,31 +112,7 @@ public class CartFeature {
                             break;
                         }
                         case 4 : {
-                            updateQuantityProduct(productCarts);
-                            break;
-                        }
-                        case 5 : {
-                            int idProductCart = IMethod.getNumber("Enter id product cart want delete : ");
-                            List<ProductCart> carts = IMethod.listProductCart();
-                            int index = productCarts.stream().map(ProductCart::getProductCartId).toList().indexOf(idProductCart);
-                            if(index == -1){
-                                System.err.println("Not found id product !");
-                            }else {
-                                index = carts.stream().map(ProductCart::getProductCartId).toList().indexOf(idProductCart);
-                                carts.remove(index);
-                                IMethod.saveDatabase(IMethod.fileProductCart,carts);
-                                currentPage = 1 ;
-                                System.out.println("Delete product cart successfully !");
-                            }
-                            break;
-                        }
-                        case 6 : {
-
-                            break;
-                        }
-                        case 7 : {
-                            PaymentFeature.paymentPage(productCarts,true);
-                           return;
+                            return;
                         }
                         default: {
                             System.err.println("Enter choice from 1 to 6 !");
@@ -94,32 +124,11 @@ public class CartFeature {
 
     }
 
-    private static void updateQuantityProduct(List<ProductCart> productCarts) {
-        List<Product> products = IMethod.listProduct();
-        int idProductCart = IMethod.getNumber("Enter id product cart want update : ");
-        List<ProductCart> carts = IMethod.listProductCart();
-        int index = productCarts.stream().map(ProductCart::getProductCartId).toList().indexOf(idProductCart);
-        if(index == -1){
-            System.err.println("Not found id product !");
-        }else {
-            index = carts.stream().map(ProductCart::getProductCartId).toList().indexOf(idProductCart);
-            int indexProduct = products.stream().map(Product::getProductName).toList().indexOf(carts.get(index).getProductName());
-            int inventory = products.get(indexProduct).getInventory();
-            int quantity = IMethod.getNumber("Enter quantity want update : ");
-            while (quantity > inventory){
-                System.err.println("Quantity product > inventory !");
-                quantity = IMethod.getNumber("Enter quantity want update : ");
-            }
-            carts.get(index).setQuantity(quantity);
-            IMethod.saveDatabase(IMethod.fileProductCart,carts);
-            System.out.println("Update quantity product successfully !");
-        }
-    }
     private static void displayCart(int skip, int itemPerPage, int size, List<ProductCart> productCarts, int currentPage, int totalPage, int sumMoney) {
 
         NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-        System.out.println("|                                                             CART                                                                |");
+        System.out.println("|                                                             LIST PRODUCT CART                                                   |");
         System.out.println("|━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━|");
         System.out.printf("| %-3s | %-28s | %-13s | %-8s | %-8s | %-13s | %-13s | %-20s |\n","ID","Product Name","finalPrice","CateId","Quantity","Size","Color","TotalMoney");
         System.out.println("|━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━|");
@@ -157,12 +166,8 @@ public class CartFeature {
         System.out.println(rs);
         System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
         System.out.printf("|                                                                                     Total money : %-29s |\n",format.format(sumMoney)+" VNĐ");
-        System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
-        System.out.println("|             1. Previous                   |              2. Back                        |               3. Next                 |");
-        System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
-        System.out.println("|                      4. Update quantity product                    |                        5. Delete one product               |");
-        System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
-        System.out.println("|                      6. Delete all product                         |                        7. Proceed to order                 |");
-        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+        System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+        System.out.println("|         1. Previous           |            2. Payment          |             3. Next            |           4. Back             |");
+        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
     }
 }

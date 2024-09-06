@@ -5,10 +5,8 @@ import business.common.IMethod;
 import business.entity.Order;
 import business.util.GetColor;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Scanner;
+import java.text.NumberFormat;
+import java.util.*;
 
 public class OrderFeature implements ICRUD <Order> {
     String fileName = "listOrder.txt";
@@ -29,6 +27,7 @@ public class OrderFeature implements ICRUD <Order> {
                System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓");
                System.out.printf("| %-3s | %-28s | %-13s | %-28s | %-18s | %-13s | %-13s |\n" ,"ID","Customer Name","Phone Number","Address","Total Money","Status","Created Date");
                System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┛");
+
                for(int i = skip ; i < (skip + itemPerPage) ; i++){
                    if(i < size){
                        orders.get(i).displayData();
@@ -47,7 +46,6 @@ public class OrderFeature implements ICRUD <Order> {
                    }
 
                    pagination.append("     ");
-
                }
                String rs ="|";
                int spaceStart = (130 - (pagination.length())) / 2 ;

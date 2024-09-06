@@ -13,9 +13,7 @@ public class Home {
         Scanner scanner = new Scanner(System.in);
         List<Customer> checkLogin = IMethod.checkLogin();
        if(checkLogin.getFirst() != null){
-           if(checkLogin.getFirst().getRole() == Role.ADMIN){
                IMethod.logout();
-           }
        }
         while (true){
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━ HOME PAGE ━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓");

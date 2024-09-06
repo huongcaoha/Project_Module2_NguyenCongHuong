@@ -1,5 +1,7 @@
 package business.entity;
 
+import business.common.IMethod;
+
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -41,19 +43,12 @@ public class Order implements Serializable {
         this.createdDate = new Date();
     }
     private int getIdInput() {
-        String currentDir = System.getProperty("user.dir");
-        String filename = currentDir + "/src/database/listOrder.txt";
-        List<Order> arr = new ArrayList<>();
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
-            arr = (List<Order>) in.readObject();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        if(arr.size() > 0){
-            return arr.get(arr.size() - 1).getOrderId() + 1;
-        }else {
-            return 1;
-        }
+       List<Order> orders = IMethod.listOrder();
+       if(orders.isEmpty()){
+           return 1 ;
+       }else {
+           return orders.getLast().getOrderId() + 1 ;
+       }
     }
 
     public boolean updateStatus(){

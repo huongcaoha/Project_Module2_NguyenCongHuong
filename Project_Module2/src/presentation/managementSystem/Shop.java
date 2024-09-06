@@ -2,13 +2,16 @@ package presentation.managementSystem;
 
 import business.common.IMethod;
 import business.entity.Customer;
+import business.entity.Order;
 import business.entity.Product;
 import business.feature.CartFeature;
 import business.feature.InformationFeature;
+import business.feature.OrderFeature;
 import business.feature.ShopFeature;
 import presentation.run.Main;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Shop {
     public static void main(String[] args) {
@@ -23,7 +26,7 @@ public class Shop {
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
             System.out.println("|                                        |                                    |                                        |");
-            System.out.println("|        4. Orders history               |          5. Favorites list         |               6. Logout                |");
+            System.out.println("|        4. Orders history               |          5. Favorites list         |             6. Logout / Login          |");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
@@ -43,7 +46,15 @@ public class Shop {
                     break;
                 }
                 case 4 : {
-
+                    Customer customer = IMethod.checkLogin().getFirst();
+                    if(customer == null){
+                        System.err.println("Please log in first !");
+                        Home.main(args);
+                    }else {
+                        List<Order> orders = IMethod.listOrder().stream().filter(order -> Objects.equals(order.getCustomerId(), customer.getCustomerId())).toList();
+                        OrderFeature orderFeature = new OrderFeature();
+                        orderFeature.displayList(orders);
+                    }
                     break;
                 }
                 case 5 : {

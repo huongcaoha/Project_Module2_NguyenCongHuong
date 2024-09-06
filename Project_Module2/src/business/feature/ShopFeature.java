@@ -25,6 +25,7 @@ public class ShopFeature {
             System.err.println("List products is empty !");
         }else {
             while (true){
+                products = IMethod.listProduct();
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                 System.out.println("|                                                        LIST PRODUCT                                                       |");
                 System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━┳━━━━━━━━━━━━━━━┳━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━┳━━━━━━━━━━━━━━━━━━━━┓");
@@ -40,7 +41,6 @@ public class ShopFeature {
                     }
                 }else {
                     System.err.println("Not found product !");
-                    totalPage = 0 ;
                 }
                 StringBuilder pagination = new StringBuilder();
                 int startPage = Math.max(currentPage - 2, 1);
@@ -111,11 +111,15 @@ public class ShopFeature {
                         break;
                     }
                     case 7 : {
-                       
+                       List<Product> products1 = IMethod.listProduct();
+                       products =  products1.stream()
+                               .sorted((productA,productB) -> productB.getCreatedDate()
+                                       .compareTo(productA.getCreatedDate())).toList().stream()
+                               .limit(10).toList();
                         break;
                     }
                     case 8 : {
-                        products = searchProductByCalatog(products);
+                        products = searchProductByCatalog(products);
                         break;
                     }
                     default: {
@@ -126,7 +130,7 @@ public class ShopFeature {
         }
     }
 
-    private static List<Product> searchProductByCalatog(List<Product> products) {
+    private static List<Product> searchProductByCatalog(List<Product> products) {
         List<Category> categories = IMethod.listCategory();
         CategoryFeature categoryFeature = new CategoryFeature();
         categoryFeature.displayList(categories);
@@ -156,7 +160,6 @@ public class ShopFeature {
         }else {
             NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
             Product product = products1.get(index);
-            int width = 112 ;
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.printf("|                                                  %-60s|\n",product.getProductName());
             System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
@@ -234,7 +237,7 @@ public class ShopFeature {
                     ProductCart productCart = new ProductCart(idCustomer,product.getProductName(),product.getFinalPrice(),product.getSize(),product.getColor(),product.getCateId(),quantity,product.getFinalPrice()*quantity);
                     List<ProductCart> listCarts = new ArrayList<>();
                     listCarts.add(productCart);
-                    Payment.payment(listCarts);
+                    PaymentFeature.paymentPage(listCarts,false);
                     break;
                 }
                 case 4 : {

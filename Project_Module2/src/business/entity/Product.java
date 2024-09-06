@@ -350,6 +350,7 @@ public class Product implements Serializable {
         System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━━━━━━┛");
     }
 
+
 //    public static void main(String[] args) {
 //        Product product = new Product();
 //        product.inputData();
