@@ -13,11 +13,28 @@ public class Login {
     public static void login(String[] args, Scanner scanner, String fileCheckLogin) {
         String fileName = "listCustomer.txt" ;
         List<Customer> customers = IMethod.getListObject(fileName);
-        System.out.println("Enter customer name : ");
-        String customerName = scanner.nextLine().trim();
+        String customerName ;
+        while (true){
+            System.out.println("Enter customer name : ");
+            customerName = scanner.nextLine().trim();
+            if(customerName.isEmpty()){
+                System.err.println("Cannot be left blank !");
+            }else {
+                break;
+            }
+        }
 
-        System.out.println("Enter password :");
-        String password = IMethod.hashPassword(scanner.nextLine().trim());
+        String password ;
+        while (true){
+            System.out.println("Enter password :");
+            password = scanner.nextLine().trim();
+            if(password.isEmpty()){
+                System.err.println("Cannot be left blank !");
+            }else {
+                password = IMethod.hashPassword(password);
+                break;
+            }
+        }
         int  index = customers.stream().map(Customer::getCustomerName).toList().indexOf(customerName);
         if(index != -1){
             boolean checkPassword = customers.get(index).getPassword().equalsIgnoreCase(password);

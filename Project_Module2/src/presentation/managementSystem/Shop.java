@@ -2,6 +2,9 @@ package presentation.managementSystem;
 
 import business.common.IMethod;
 import business.entity.Customer;
+import business.entity.Product;
+import business.feature.CartFeature;
+import business.feature.InformationFeature;
 import business.feature.ShopFeature;
 import presentation.run.Main;
 
@@ -27,15 +30,16 @@ public class Shop {
             int choice = IMethod.getNumber("Enter choice : ");
             switch (choice){
                 case 1 : {
-                    ShopFeature.displayList(args,IMethod.listProduct());
+                    List<Product> products = IMethod.listProduct();
+                    ShopFeature.displayList(args,products);
                     break;
                 }
                 case 2 : {
-                ShopFeature.viewInformation();
+                InformationFeature.viewInformation();
                     break;
                 }
                 case 3 : {
-                ShopFeature.viewCart(checkLogin.getFirst());
+                CartFeature.viewCart(checkLogin.getFirst());
                     break;
                 }
                 case 4 : {
