@@ -5,6 +5,7 @@ import business.entity.*;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,10 +22,13 @@ public class StatisticalManagement {
         int totalCustomer = customers.size();
         Integer currentMonth = LocalDate.now().getMonthValue();
         Date date = new Date(); // Lấy thời gian hiện tại
-        SimpleDateFormat sdf = new SimpleDateFormat("MM"); // Định dạng tháng
+
         double salesMonth = orders.stream()
-                .filter(order -> Boolean.parseBoolean(sdf.format(order.getCreatedDate()
-                        .equals(currentMonth.toString()))))
+                .filter(order -> {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(order.getCreatedDate());
+                    return calendar.MONTH == currentMonth ;
+                })
                 .toList().stream().map(Order::getTotalMoney).reduce((double) 0,(pre, current) -> pre + current);
         while (true){
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
@@ -33,19 +37,19 @@ public class StatisticalManagement {
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|           Total Categories :           |          Total Products :          |               Total Orders :           |");
-            System.out.printf("|                 %-12d Category |                %-12d Product |                %-15d Order |",totalCategory,totalProduct,totalOrder);
+            System.out.printf("|                 %-3d Category           |                %-3d Product         |                 %-3d Order              ",totalCategory,totalProduct,totalOrder);
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
-            System.out.println("|             Total Customers :          |          Sales this month :        |           1. View monthly sales        |");
-            System.out.printf("|                %-13d Customer |                %-16.1f VNĐ |                                       |",totalCustomer,salesMonth);
+            System.out.println("|             Total Customers :          |          Sales this month :        |                                        |");
+            System.out.printf("|                %-3d Customer            |                %-15.1f VNĐ |                                        ",totalCustomer,salesMonth);
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
-            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-            System.out.println("|                                                        2. Exit                                                       |");
-            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+            System.out.println("|                      1. View monthly sales                 |                   2. Exit                               |");
+            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             int choice = IMethod.getNumber("Enter your choice : ");
             switch (choice){
                 case 1 : {

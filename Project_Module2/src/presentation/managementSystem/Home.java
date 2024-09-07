@@ -36,7 +36,7 @@ public class Home {
                     break;
                 }
                 case 4 : {
-                    ForgetPassword.main(args);
+                    ForgetPassword.forgetPassword();
                     break;
                 }
                 case 5 : {

@@ -37,7 +37,11 @@ public class Login {
         }
         int  index = customers.stream().map(Customer::getCustomerName).toList().indexOf(customerName);
         if(index != -1){
-            boolean checkPassword = customers.get(index).getPassword().equalsIgnoreCase(password);
+            boolean checkPassword = customers.get(index).getPassword().equalsIgnoreCase(password) ;
+            if(!customers.get(index).getStatus()){
+                System.err.println("Your account is locked !");
+                return;
+            }
             if(checkPassword){
                 System.out.println("Login successfully !");
                 List<Customer> list = IMethod.getListObject(fileCheckLogin);
@@ -48,15 +52,18 @@ public class Login {
                     list.set(0,customers.get(index));
                     IMethod.saveDatabase(fileCheckLogin,list);
                 }
+
                 if(customers.get(index).getRole() == Role.CUSTOMER){
                     Shop.main(args);
                 }else {
                     AdminManagement.main(args);
                 }
 
+            }else {
+                System.err.println("Customer name or password is incorrect !");
             }
         }else {
-            System.err.println("Customer name non-existent !");
+            System.err.println("Customer name or password is incorrect !");
         }
     }
 }

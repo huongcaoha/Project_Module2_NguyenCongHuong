@@ -116,6 +116,7 @@ public class ShopFeature {
                                .sorted((productA,productB) -> productB.getCreatedDate()
                                        .compareTo(productA.getCreatedDate())).toList().stream()
                                .limit(10).toList();
+                       productFeature.displayList(products);
                         break;
                     }
                     case 8 : {
@@ -215,7 +216,7 @@ public class ShopFeature {
                         ProductCart productCart = new ProductCart(idCustomer,product.getProductName(),product.getFinalPrice(),product.getSize(),product.getColor(),product.getCateId(),quantity,product.getFinalPrice()*quantity);
                         listCarts.add(productCart);
                     }else {
-                        listCarts.get(index).setQuantity(listCarts.get(index).getQuantity()+quantity);
+                        listCarts.get(indexInCart).setQuantity(listCarts.get(indexInCart).getQuantity()+quantity);
                     }
 
                     boolean result = IMethod.saveDatabase("listProductCart.txt",listCarts);

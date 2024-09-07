@@ -6,6 +6,7 @@ import business.entity.Order;
 import business.util.GetColor;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OrderFeature implements ICRUD <Order> {
@@ -48,8 +49,8 @@ public class OrderFeature implements ICRUD <Order> {
                    pagination.append("     ");
                }
                String rs ="|";
-               int spaceStart = (130 - (pagination.length())) / 2 ;
-               int spaceEnd = (130 - pagination.length()) - spaceStart ;
+               int spaceStart = (145 - (pagination.length())) / 2 ;
+               int spaceEnd = (145 - pagination.length()) - spaceStart ;
                for(int j = 1 ; j <= spaceStart ; j++){
                    rs += " ";
                }
@@ -204,6 +205,51 @@ public class OrderFeature implements ICRUD <Order> {
           }else {
               System.err.println("Update error !");
           }
+        }
+    }
+
+    public void searchOrderByDay(){
+        int startDay = IMethod.getNumber("Enter start day : ");
+        int endDay ;
+        while (true){
+            endDay = IMethod.getNumber("Enter end day : ");
+            if(endDay < startDay){
+                System.err.println("Enter end day >= start day !");
+            }else {
+                break;
+            }
+        }
+        Calendar calendar = Calendar.getInstance();
+        List<Order> orders = IMethod.listOrder();
+        int finalEndDay = endDay;
+        orders = orders.stream().filter(order -> {
+            calendar.setTime(order.getCreatedDate());
+            System.out.println(calendar.DAY_OF_MONTH + "start day : " + startDay + " , end day : " + finalEndDay);
+            return calendar.DAY_OF_MONTH+1 >= startDay && calendar.DAY_OF_MONTH <= finalEndDay;
+        }).toList();
+        if(orders.isEmpty()){
+            System.err.println("Not found order !");
+        }else {
+            displayList(orders);
+        }
+
+
+    }
+    public void cancelOrder(){
+        List<Order> orders = IMethod.listOrder();
+        int idOrder = IMethod.getNumber("Enter id order to cancel : ");
+        int indexOrder = orders.stream().map(Order::getOrderId).toList().indexOf(idOrder);
+        if(indexOrder == -1){
+            System.err.println("Not found id order ! ");
+        }else {
+            if(orders.get(indexOrder).getStatus() == 1){
+                orders.get(indexOrder).setStatus(0);
+                IMethod.saveDatabase(IMethod.fileOrder,orders);
+                System.out.println("Cancel order success !");
+            }else {
+                System.err.println("Cannot cancel this order when order status =  " + orders.get(indexOrder).printStatus(orders.get(indexOrder).getStatus()));
+            }
+
         }
     }
 

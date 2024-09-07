@@ -149,18 +149,23 @@ public class Order implements Serializable {
         switch (status){
             case 0 : {
                 rs = "Cancel";
+                break;
             }
             case 1 : {
                 rs = "ordered";
+                break;
             }
             case 2 : {
                 rs = "Confirm" ;
+                break;
             }
             case 3 : {
                 rs = "delivering";
+                break;
             }
             case 4 : {
                 rs = "delivered";
+                break;
             }
         }
         return rs ;

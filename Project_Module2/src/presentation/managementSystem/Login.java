@@ -26,7 +26,7 @@ public class Login {
                    break;
                }
                case 3 : {
-                   ForgetPassword.main(args);
+                   ForgetPassword.forgetPassword();
                    break;
                }
                case 4 : {

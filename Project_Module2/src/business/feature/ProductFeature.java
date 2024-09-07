@@ -53,6 +53,9 @@ public class ProductFeature implements ICRUD <Product> {
                     if(i > totalPage){
                         break;
                     }
+                    if(i < 1 ){
+                        continue;
+                    }
                     if(currentPage == i){
                         pagination.append(GetColor.RED + "[").append(i).append("]").append(GetColor.RESET);
                     }else {

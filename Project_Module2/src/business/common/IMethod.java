@@ -111,6 +111,33 @@ public class IMethod {
             return false ;
         }
 
+        public static String getString(String label){
+                String rs ;
+            while (true){
+                System.out.println(label);
+                rs = IMethod.scanner.nextLine().trim();
+                if(rs.isEmpty()){
+                    System.err.println("Cannot be left blank !");
+                }else {
+                    break;
+                }
+            }
+            return rs ;
+        }
+
+        public static String getPhoneNumber(){
+            String phoneNumber ;
+            while (true){
+                System.out.println("Enter phone number :");
+                phoneNumber = IMethod.scanner.nextLine().trim();
+                if(phoneNumber.matches("^0[35789][0-9]{8}$")){
+                    break;
+                }else {
+                    System.err.println("Phone number invalid !");
+                }
+            }
+            return phoneNumber;
+        }
         public static List<Customer> checkLogin(){
             return getListObject(fileCheckLogin);
         }
