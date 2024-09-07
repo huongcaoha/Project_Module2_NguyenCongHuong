@@ -3,14 +3,17 @@ package presentation.managementSystem;
 import business.common.IMethod;
 import business.entity.*;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class StatisticalManagement {
     public static void main(String[] args) {
+        NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
         List<Category> categories = IMethod.listCategory();
         List<Product> products = IMethod.listProduct();
         List<Order> orders = IMethod.listOrder();
@@ -25,9 +28,8 @@ public class StatisticalManagement {
 
         double salesMonth = orders.stream()
                 .filter(order -> {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(order.getCreatedDate());
-                    return calendar.MONTH == currentMonth ;
+                    LocalDate localDate = order.getCreatedDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+                    return localDate.getMonthValue()== currentMonth  &&  order.getStatus() == 4;
                 })
                 .toList().stream().map(Order::getTotalMoney).reduce((double) 0,(pre, current) -> pre + current);
         while (true){
@@ -37,14 +39,14 @@ public class StatisticalManagement {
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|           Total Categories :           |          Total Products :          |               Total Orders :           |");
-            System.out.printf("|                 %-3d Category           |                %-3d Product         |                 %-3d Order              ",totalCategory,totalProduct,totalOrder);
+            System.out.printf("|                 %-3d Category           |                %-3d Product         |                 %-3d Order              |\n",totalCategory,totalProduct,totalOrder);
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|             Total Customers :          |          Sales this month :        |                                        |");
-            System.out.printf("|                %-3d Customer            |                %-15.1f VNĐ |                                        ",totalCustomer,salesMonth);
+            System.out.printf("|                %-3d Customer            |               %-20s |                                        |\n",totalCustomer,format.format(salesMonth)+" VNĐ");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
@@ -56,7 +58,7 @@ public class StatisticalManagement {
                     int currentYear = LocalDate.now().getYear();
                     String title = "Year : " + currentYear ;
                     System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                    System.out.printf("|                                                 %15s                                                      |",title);
+                    System.out.printf("|                                                 %15s                                                      |\n",title);
                     System.out.println("┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                     System.out.println("|    Month          |     Total order     |   Total order cancel   |   Total order success  |        Total money       |");
                     System.out.println("┗━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
@@ -88,7 +90,7 @@ public class StatisticalManagement {
                         }).toList().stream().map(Order::getTotalMoney).reduce((double) 0, Double::sum);
 
                         System.out.println("┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                        System.out.printf("| %-17s | %-19d | %-22d | %-22d | %-23.1f |",month,orderTotal,orderCancel,orderSuccess,totalMoney);
+                        System.out.printf("| %-17s | %-19d | %-22d | %-22d | %-24s |\n",month,orderTotal,orderCancel,orderSuccess,format.format(totalMoney)+" VNĐ");
                         System.out.println("┗━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
                      }
                     break;
