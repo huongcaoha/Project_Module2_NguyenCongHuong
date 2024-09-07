@@ -4,3 +4,9 @@ Những file đã test chức năng oke :
 - order management
 - customer management
 ==> đã test xong admin management
+
+-test shopping
++ display list oke
++ view information oke
++ view cart oke
++ history order oke

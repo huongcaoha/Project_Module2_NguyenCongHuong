@@ -4,10 +4,7 @@ import business.common.IMethod;
 import business.entity.Customer;
 import business.entity.Order;
 import business.entity.Product;
-import business.feature.CartFeature;
-import business.feature.InformationFeature;
-import business.feature.OrderFeature;
-import business.feature.ShopFeature;
+import business.feature.*;
 import presentation.run.Main;
 
 import java.util.List;
@@ -51,14 +48,18 @@ public class Shop {
                         System.err.println("Please log in first !");
                         Home.main(args);
                     }else {
-                        List<Order> orders = IMethod.listOrder().stream().filter(order -> Objects.equals(order.getCustomerId(), customer.getCustomerId())).toList();
-                        OrderFeature orderFeature = new OrderFeature();
-                        orderFeature.displayList(orders);
+                        HistoryOrder.displayList(customer);
                     }
                     break;
                 }
                 case 5 : {
-
+                    Customer customer = IMethod.checkLogin().getFirst();
+                    if(customer == null){
+                        System.err.println("Please log in first !");
+                        Home.main(args);
+                    }else {
+                        FavoritesFeature.displayFavorites(customer);
+                    }
                     break;
                 }
                 case 6 : {

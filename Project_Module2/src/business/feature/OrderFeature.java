@@ -95,34 +95,21 @@ public class OrderFeature implements ICRUD <Order> {
         }
     }
 
-    public void searchById(){
-        List<Order> orders = IMethod.getListObject(fileName);
-        Integer orderId ;
-        while (true){
-            try {
-                System.out.println("Enter number id order to search : ");
-                orderId = Integer.parseInt(scanner.nextLine().trim());
-                if(orderId <= 0){
-                    System.err.println("Enter order id > 0 !");
-                }else {
-                    break;
-                }
-            }catch (NumberFormatException n){
-                System.err.println("Order id invalid !");
-            }
-        }
-        Integer finalOrderId = orderId;
-        Order rs = orders.stream().filter(order -> Objects.equals(order.getOrderId(), finalOrderId)).findFirst().orElse(null);
+    public void searchById(List<Order> orders){
+        int orderId = IMethod.getNumber("Enter id order want search : ");
+        Order rs = orders.stream().filter(order -> Objects.equals(order.getOrderId(), orderId)).findFirst().orElse(null);
         if(rs == null){
             System.err.println("Not found order id !");
         }else {
-            System.out.println("Result search is : ");
+            System.out.println("*********************************************************** RESULT SEARCH ****************************************************************");
             rs.displayData();
+            System.out.println("******************************************************************************************************************************************");
+            System.out.println("                                                       *                  *                                                               ");
+            System.out.println("                                                                 *                                                                        ");
         }
     }
 
-    public void searchByStatus(){
-        List<Order> orders = IMethod.getListObject(fileName);
+    public void searchByStatus(List<Order> orders){
         Integer status ;
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓");
         System.out.println("|       0. Cancel        |       1. Ordered       |       2. Confirm       |      3. Delivering      |      4. Delivered       |");
@@ -151,7 +138,7 @@ public class OrderFeature implements ICRUD <Order> {
     }
 
     public void seeOrderDetail(){
-        List<Order> orders = IMethod.getListObject(fileName);
+        List<Order> orders = IMethod.listOrder();
         int orderId ;
         while (true){
             try {
@@ -208,7 +195,7 @@ public class OrderFeature implements ICRUD <Order> {
         }
     }
 
-    public void searchOrderByDay(){
+    public void searchOrderByDay(List<Order> orders){
         int startDay = IMethod.getNumber("Enter start day : ");
         int endDay ;
         while (true){
@@ -220,7 +207,6 @@ public class OrderFeature implements ICRUD <Order> {
             }
         }
         Calendar calendar = Calendar.getInstance();
-        List<Order> orders = IMethod.listOrder();
         int finalEndDay = endDay;
         orders = orders.stream().filter(order -> {
             calendar.setTime(order.getCreatedDate());

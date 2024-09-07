@@ -20,7 +20,7 @@ public class IMethod {
     public static String fileFavoriteProduct = "listFavoriteProduct.txt";
 
     public static <T> List<T> getListObject(String nameFile){
-        List<T> list = null;
+        List<T> list = new ArrayList<>();
         String filename =  "src/business/database/" + nameFile;
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
             list = (List<T>) in.readObject();

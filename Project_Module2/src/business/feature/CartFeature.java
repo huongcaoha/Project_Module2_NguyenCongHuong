@@ -17,10 +17,11 @@ public class CartFeature {
         if(checkLogin.getFirst() == null){
             System.err.println("Please log in first !");
         }else {
-            List<ProductCart> productCarts =IMethod.listProductCart().stream().filter(productCart -> Objects.equals(productCart.getCustomerId(), customer.getCustomerId())).toList();
+
             int currentPage = 1 ;
             int itemPerPage = 5 ;
             while (true){
+                List<ProductCart> productCarts =IMethod.listProductCart().stream().filter(productCart -> Objects.equals(productCart.getCustomerId(), customer.getCustomerId())).toList();
                 int skip = (currentPage -1 ) * itemPerPage ;
                 int totalPage = (int) Math.ceil((double) productCarts.size() /itemPerPage);
                 int size = productCarts.size();
@@ -77,7 +78,10 @@ public class CartFeature {
                             break;
                         }
                         case 6 : {
-
+                            List<ProductCart> productCarts1 = IMethod.listProductCart();
+                            productCarts1.clear();
+                            IMethod.saveDatabase(IMethod.fileProductCart,productCarts1);
+                            System.out.println("Delete all product cart success !");
                             break;
                         }
                         case 7 : {

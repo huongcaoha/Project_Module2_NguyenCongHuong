@@ -28,11 +28,11 @@ public class OrderManagement {
                     break;
                 }
                 case 2 : {
-                    orderFeature.searchById();
+                    orderFeature.searchById(IMethod.listOrder());
                     break;
                 }
                 case 3 : {
-                    orderFeature.searchByStatus();
+                    orderFeature.searchByStatus(IMethod.listOrder());
                     break;
                 }
                 case 4 : {
@@ -48,7 +48,7 @@ public class OrderManagement {
                     break;
                 }
                 case 7 : {
-                    orderFeature.searchOrderByDay();
+                    orderFeature.searchOrderByDay(IMethod.listOrder());
                     break;
                 }
                 case 8 : {

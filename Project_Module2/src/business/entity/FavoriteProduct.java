@@ -3,8 +3,11 @@ package business.entity;
 import business.common.IMethod;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class FavoriteProduct implements Serializable {
     private Integer id ;
@@ -60,5 +63,13 @@ public class FavoriteProduct implements Serializable {
 
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public void displayData(){
+        NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━┓");
+        System.out.printf("| %-3d | %-28s | %-3s | %-13s | %-18s | %-8s | %-7d | %-13s |\n",id,favoriteProducts.getProductName(),favoriteProducts.getDiscount()+"%",format.format(favoriteProducts.getFinalPrice())+"VNĐ",favoriteProducts.getSize(),favoriteProducts.getColor(),favoriteProducts.getCateId(),dateTimeFormatter.format(createdDate));
+        System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━┻━━━━━━━━━━━━━━━┛");
     }
 }

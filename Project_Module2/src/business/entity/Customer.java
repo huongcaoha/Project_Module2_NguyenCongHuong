@@ -48,7 +48,7 @@ public class Customer implements Serializable {
     }
 
     public void updateData(Scanner scanner){
-        updateCustomerName(scanner);
+
 
         inputPassword(scanner);
 

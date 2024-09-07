@@ -194,13 +194,18 @@ public class ShopFeature {
                         Login.main(args);
                     }
                     List<FavoriteProduct> favoriteProducts = IMethod.listFavoriteProduct();
-                    FavoriteProduct favoriteProduct = new FavoriteProduct(product,idCustomer);
-                    favoriteProducts.add(favoriteProduct);
-                   boolean result = IMethod.saveDatabase("listFavoriteProduct.txt",favoriteProducts);
-                    if(result){
-                        System.out.println("Add favorite product successfully !");
+                    boolean isExist = favoriteProducts.stream().anyMatch(favoriteProduct -> Objects.equals(favoriteProduct.getFavoriteProducts().getProductId(), product.getProductId()));
+                    if(isExist){
+                        System.err.println("The product is already in your favorites list !");
                     }else {
-                        System.err.println("Add favorite product error !");
+                        FavoriteProduct favoriteProduct = new FavoriteProduct(product,idCustomer);
+                        favoriteProducts.add(favoriteProduct);
+                        boolean result = IMethod.saveDatabase("listFavoriteProduct.txt",favoriteProducts);
+                        if(result){
+                            System.out.println("Add favorite product successfully !");
+                        }else {
+                            System.err.println("Add favorite product error !");
+                        }
                     }
                     break;
                 }
