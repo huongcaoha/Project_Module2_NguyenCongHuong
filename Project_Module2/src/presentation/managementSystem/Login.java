@@ -1,7 +1,9 @@
 package presentation.managementSystem;
 
 import business.common.IMethod;
+import business.util.GetColor;
 
+import java.awt.*;
 import java.util.Scanner;
 
 public class Login {
@@ -9,6 +11,8 @@ public class Login {
         String fileCheckLogin = "checkLogin.txt";
        while (true){
            Scanner scanner = new Scanner(System.in);
+           System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+           System.out.println("|                                                         "+ GetColor.GREEN + " PAGE : LOGIN"+GetColor.RESET+"                                                     |");
            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
            System.out.println("┃                              ┃                              ┃                              ┃                              ┃");
            System.out.println("┃         1. Login             ┃         2. Register          ┃      3. Forget password      ┃           4 . EXIT           |");

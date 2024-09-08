@@ -56,7 +56,6 @@ public class Shop {
                     Customer customer = IMethod.checkLogin().getFirst();
                     if(customer == null){
                         System.err.println("Please log in first !");
-                        Home.main(args);
                     }else {
                         FavoritesFeature.displayFavorites(customer);
                     }

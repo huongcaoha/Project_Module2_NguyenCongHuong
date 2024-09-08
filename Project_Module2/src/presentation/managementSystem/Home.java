@@ -4,6 +4,7 @@ import business.common.IMethod;
 import business.entity.Customer;
 import business.entity.Role;
 import business.feature.Login;
+import business.util.GetColor;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,6 +17,8 @@ public class Home {
                IMethod.logout();
        }
         while (true){
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|     "+ GetColor.GREEN+"WELCOME TO SHOP : IPHONE STORE"+GetColor.RESET+"                                                                                         |");
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━ HOME PAGE ━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("┃                      ┃                        ┃                           ┃                        ┃                       |");
             System.out.println("┃    1. REGISTER       ┃       2. LOGIN         ┃        3. Shopping        ┃   4. FORGET PASSWORD   ┃        5 . EXIT       |");

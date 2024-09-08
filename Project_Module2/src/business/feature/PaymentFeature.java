@@ -14,7 +14,8 @@ import java.util.Locale;
 
 public class PaymentFeature {
     public static void paymentPage(List<ProductCart> productCarts,boolean deleteCart){
-        System.out.println("******************************************************* PAGE PAYMENT **************************************************************");
+        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+        System.out.println("|                                                         "+GetColor.GREEN+"PAGE : PAYMENT"+GetColor.RESET+"                                                          |");
         List<Customer> checkLogin = IMethod.checkLogin();
         if(checkLogin.getFirst() == null){
             System.err.println("Please log in first !");

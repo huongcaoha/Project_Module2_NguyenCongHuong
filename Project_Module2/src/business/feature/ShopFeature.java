@@ -27,7 +27,7 @@ public class ShopFeature {
             while (true){
                 products = IMethod.listProduct();
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|                                                        LIST PRODUCT                                                       |");
+                System.out.println("|  "+GetColor.GREEN+"SHOP : IPHONE STORE"+GetColor.RESET+"                                   LIST PRODUCT                                                       |");
                 System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━┳━━━━━━━━━━━━━━━┳━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━┳━━━━━━━━━━━━━━━━━━━━┓");
                 System.out.printf("| %-3s | %-28s | %-3s | %-13s | %-3s | %-18s | %-8s | %-3s | %-18s |\n","ID","Product Name","-%","FinalPrice","Inv","Size","Color","CID","Status");
                 System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━━━━━━┛");
@@ -120,7 +120,7 @@ public class ShopFeature {
                         break;
                     }
                     case 8 : {
-                        products = searchProductByCatalog(products);
+                         searchProductByCatalog(products);
                         break;
                     }
                     default: {
@@ -131,7 +131,7 @@ public class ShopFeature {
         }
     }
 
-    private static List<Product> searchProductByCatalog(List<Product> products) {
+    private static void searchProductByCatalog(List<Product> products) {
         List<Category> categories = IMethod.listCategory();
         CategoryFeature categoryFeature = new CategoryFeature();
         categoryFeature.displayList(categories);
@@ -148,7 +148,8 @@ public class ShopFeature {
         }
         int finalCateId = cateId;
         products = products.stream().filter(product -> product.getCateId() == finalCateId).toList();
-        return products;
+        ProductFeature productFeature = new ProductFeature();
+        productFeature.displayList(products);
     }
 
     private static boolean seeProductDetail(String[] args) {
@@ -162,7 +163,9 @@ public class ShopFeature {
             NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
             Product product = products1.get(index);
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-            System.out.printf("|                                                  %-60s|\n",product.getProductName());
+            System.out.println("|                                              "+GetColor.GREEN+"PAGE : PRODUCT DETAIL"+GetColor.RESET+"                                           |");
+            System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+            System.out.printf("|                                      Product Name :  %-56s|\n",product.getProductName());
             System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
             System.out.printf("| - %-107s|\n","Price : "+format.format(product.getFinalPrice()) + "VNĐ");
             System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");

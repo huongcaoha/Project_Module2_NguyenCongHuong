@@ -2,6 +2,7 @@ package business.feature;
 
 import business.common.IMethod;
 import business.entity.Customer;
+import business.util.GetColor;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,7 +18,9 @@ public class InformationFeature {
             while (true){
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.printf("| %-76s |\n","              Customer Name : " +customer.getCustomerName());
+                System.out.println("|                            "+ GetColor.GREEN+"PAGE : INFORMATION"+GetColor.RESET+"                                |");
+                System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+                System.out.printf("| %-76s |\n","                        Customer Name : " +customer.getCustomerName());
                 System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
                 System.out.printf("| -Gender : %-10s                                                         |\n",customer.getGender() ? "male" : "female");
                 System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
