@@ -32,25 +32,42 @@ public class InformationFeature {
                 System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
                 System.out.printf("| -Pass : %-69s|\n",customer.getPassword());
                 System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
-                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|          1. Update information          |            2. Back                 |");
-                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
+                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println("|  1. Update information  |         2. Back        |    3. Change Password     |");
+                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
 
                 int choice = IMethod.getNumber("Enter choice : ");
-                if(choice == 1){
-                    List<Customer> customers = IMethod.listCustomer();
-                    int index = customers.stream().map(Customer::getCustomerName).toList().indexOf(checkLogin.getFirst().getCustomerName());
-                    customers.get(index).updateData(IMethod.scanner);
-                    IMethod.saveDatabase(IMethod.fileCustomer,customers);
-                    checkLogin.set(0,customers.get(index));
-                    IMethod.saveDatabase(IMethod.fileCheckLogin,checkLogin);
-                    checkLogin = IMethod.checkLogin();
-                    customer = checkLogin.getFirst();
-                    System.out.println("Update information successfully !");
-                }else if(choice == 2) {
-                    return;
-                }else {
-                    System.err.println("Enter choice 1 or 2 !");
+                switch (choice){
+                    case 1 : {
+                        List<Customer> customers = IMethod.listCustomer();
+                        int index = customers.stream().map(Customer::getCustomerName).toList().indexOf(checkLogin.getFirst().getCustomerName());
+                        customers.get(index).updateData(IMethod.scanner);
+                        IMethod.saveDatabase(IMethod.fileCustomer,customers);
+                        checkLogin.set(0,customers.get(index));
+                        IMethod.saveDatabase(IMethod.fileCheckLogin,checkLogin);
+                        checkLogin = IMethod.checkLogin();
+                        customer = checkLogin.getFirst();
+                        System.out.println("Update information successfully !");
+                        break;
+                    }
+                    case 2 : {
+                        return;
+                    }
+                    case 3 : {
+                        List<Customer> customers = IMethod.listCustomer();
+                        int index = customers.stream().map(Customer::getCustomerName).toList().indexOf(checkLogin.getFirst().getCustomerName());
+                        customers.get(index).updatePassword(IMethod.scanner);
+                        IMethod.saveDatabase(IMethod.fileCustomer,customers);
+                        checkLogin.set(0,customers.get(index));
+                        IMethod.saveDatabase(IMethod.fileCheckLogin,checkLogin);
+                        checkLogin = IMethod.checkLogin();
+                        customer = checkLogin.getFirst();
+                        System.out.println("Update information successfully !");
+                        break;
+                    }
+                    default: {
+                        System.err.println("Enter choice 1 or 3 !");
+                    }
                 }
             }
 

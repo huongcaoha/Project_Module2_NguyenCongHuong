@@ -101,9 +101,10 @@ public class OrderFeature implements ICRUD <Order> {
         if(rs == null){
             System.err.println("Not found order id !");
         }else {
-            System.out.println("*********************************************************** RESULT SEARCH ****************************************************************");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|                                                           "+GetColor.GREEN+"RESULT SEARCH"+GetColor.RESET+"                                                                |");
             rs.displayData();
-            System.out.println("******************************************************************************************************************************************");
+            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.println("                                                       *                  *                                                               ");
             System.out.println("                                                                 *                                                                        ");
         }
@@ -216,6 +217,8 @@ public class OrderFeature implements ICRUD <Order> {
         if(orders.isEmpty()){
             System.err.println("Not found order !");
         }else {
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|                                                           "+GetColor.GREEN+"RESULT SEARCH"+GetColor.RESET+"                                                                |");
             displayList(orders);
         }
 
