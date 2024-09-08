@@ -58,7 +58,9 @@ public class Demo {
 
 //        System.out.printf("[%-30s | %-10s | %-10d ]\n" , "huongcaoha","123456789",50);
 //        System.out.printf("[%-30s | %-10s | %-10d ]\n","123","456",123456789);
-     List<FavoriteProduct> favoriteProducts = new ArrayList<>();
-     IMethod.saveDatabase(IMethod.fileFavoriteProduct,favoriteProducts);
+    List<Customer> customers = IMethod.listCustomer();
+    int index = customers.stream().map(Customer::getCustomerId).toList().indexOf(1);
+    customers.get(index).updateCustomerStatus();
+    IMethod.saveDatabase(IMethod.fileCustomer,customers);
     }
 }

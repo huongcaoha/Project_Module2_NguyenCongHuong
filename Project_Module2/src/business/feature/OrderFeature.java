@@ -12,6 +12,7 @@ import java.util.*;
 public class OrderFeature implements ICRUD <Order> {
     String fileName = "listOrder.txt";
     Scanner scanner = new Scanner(System.in);
+    ProductCartFeature productCartFeature = new ProductCartFeature();
     @Override
     public void displayList(List<Order> orders) {
         int currentPage = 1 ;
@@ -104,9 +105,12 @@ public class OrderFeature implements ICRUD <Order> {
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("|                                                           "+GetColor.GREEN+"RESULT SEARCH"+GetColor.RESET+"                                                                |");
             rs.displayData();
-            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-            System.out.println("                                                       *                  *                                                               ");
-            System.out.println("                                                                 *                                                                        ");
+            productCartFeature.displayList(rs.getCarts());
+//            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+//            System.out.println("|                                                             0. Back                                                                    |");
+//            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+//            System.out.println("                                                       *                  *                                                               ");
+//            System.out.println("                                                                 *                                                                        ");
         }
     }
 
@@ -159,7 +163,6 @@ public class OrderFeature implements ICRUD <Order> {
         if(rs == null){
             System.err.println("Not found order id !");
         }else {
-            ProductCartFeature productCartFeature = new ProductCartFeature();
             productCartFeature.displayList(rs.getCarts());
             System.out.println("Total money : " + rs.getTotalMoney());
         }

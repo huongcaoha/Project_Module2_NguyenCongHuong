@@ -2,6 +2,7 @@ package presentation.managementSystem;
 
 import business.common.IMethod;
 import business.entity.Customer;
+import business.entity.Role;
 import business.feature.CustomerFeature;
 import presentation.run.Main;
 
@@ -29,7 +30,7 @@ public class CustomerManagement {
             int choice = IMethod.getNumber("Enter choice : ");
             switch (choice){
                 case 1 : {
-                    List<Customer> customers1 = IMethod.listCustomer();
+                    List<Customer> customers1 = IMethod.listCustomer().stream().filter(customer -> customer.getRole() == Role.CUSTOMER).toList();
                     customerFeature.displayList(customers1);
                     break;
                 }

@@ -61,7 +61,7 @@ public class StatisticalManagement {
                     System.out.printf("|                                                 %15s                                                      |\n",title);
                     System.out.println("┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                     System.out.println("|    Month          |     Total order     |   Total order cancel   |   Total order success  |        Total money       |");
-                    System.out.println("┗━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+                    System.out.println("|━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━|");
                     List<Order> rs = orders.stream().filter(order -> {
                         LocalDate localDate = order.getCreatedDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
                         return localDate.getYear() == currentYear;
@@ -89,10 +89,26 @@ public class StatisticalManagement {
                             return localDate.getMonthValue() == finalI &&  order.getStatus() == 4;
                         }).toList().stream().map(Order::getTotalMoney).reduce((double) 0, Double::sum);
 
-                        System.out.println("┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                        System.out.println("|━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━|");
                         System.out.printf("| %-17s | %-19d | %-22d | %-22d | %-24s |\n",month,orderTotal,orderCancel,orderSuccess,format.format(totalMoney)+" VNĐ");
-                        System.out.println("┗━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+                        System.out.println("|━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━|");
                      }
+                    System.out.println("|                                                      0. Back                                                         |");
+                    System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+                    while (true){
+                        try {
+                            System.out.println("Enter 0 to back !");
+                            Integer exit = Integer.parseInt(IMethod.scanner.nextLine().trim());
+                            if(exit == 0){
+                                break;
+                            }else {
+                                System.err.println("Please enter number 0 !");
+                            }
+                        }catch (NumberFormatException e){
+                            System.err.println("Input invalid !");
+                        }
+                    }
+
                     break;
                 }
                 case 2 : {
