@@ -12,19 +12,19 @@ public class AddressFeature {
         List<Address> addresses = customer.getAddresses();
         int currentPage = 1 ;
         int itemPerPage = 5 ;
-        int totalPage = (int) Math.ceil((double) addresses.size() /itemPerPage);
-        int skip = (currentPage -1 ) * itemPerPage ;
-        int size = addresses.size();
         if(addresses.isEmpty()){
             System.err.println("List products is empty !");
         }else {
             while (true){
                 addresses = IMethod.listAddresses(customer);
+               int totalPage = (int) Math.ceil((double) addresses.size() /itemPerPage);
+               int skip = (currentPage -1 ) * itemPerPage ;
+                int size = addresses.size();
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|                                                   "+ GetColor.GREEN+"LIST ADDRESS"+GetColor.RESET+"                                                   |");
-                System.out.println("|━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━|");
-                System.out.printf("| %-8s | %-88s | %-18s |\n" ,"ID","Address Name","CreatedDate");
-                System.out.println("┗━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┛");
+                System.out.println("|                                                     "+ GetColor.GREEN+"LIST ADDRESS"+GetColor.RESET+"                                                     |");
+                System.out.println("|━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━|");
+                System.out.printf("| %-8s | %-28s | %-45s | %-13s | %-10s |\n" ,"ID","Receive Name","Address Name","Phone Number","CreateDate");
+                System.out.println("|━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━|");
                 for(int i = skip ; i < (skip + itemPerPage) ; i++){
                     if(i < size){
                         addresses.get(i).displayData();
@@ -62,8 +62,8 @@ public class AddressFeature {
 
                 }
                 String rs ="|";
-                int spaceStart = (118 - (pagination.length())) / 2 ;
-                int spaceEnd = (118 - pagination.length()) - spaceStart ;
+                int spaceStart = (127 - (pagination.length())) / 2 ;
+                int spaceEnd = (127 - pagination.length()) - spaceStart ;
                 for(int j = 1 ; j <= spaceStart ; j++){
                     rs += " ";
                 }
@@ -76,7 +76,7 @@ public class AddressFeature {
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                 System.out.println("|             1. Previous               |                 2. Back              |                3. Next                |");
                 System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
-                System.out.println("|             4. Add address            |          5. Delete one address       |        6. Search address by id        |                     |");
+                System.out.println("|             4. Add address            |            5. Delete address         |        6. Search address by id        |                     |");
                 System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
                 int choice = IMethod.getNumber("Enter choice : ");
@@ -112,28 +112,131 @@ public class AddressFeature {
                     }
                     case 6 : {
                         List<Address> addresses1 = IMethod.listAddresses(customer);
-                        int idAddress = IMethod.getNumber("Enter id address want delete : ");
+                        int idAddress = IMethod.getNumber("Enter id address want search : ");
                         int indexAddress = addresses1.stream().map(Address::getAddressId).toList().indexOf(idAddress);
-                        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                        System.out.println("|                                                   "+GetColor.GREEN+"RESULT SEARCH"+GetColor.RESET+"                                                      |");
-                        addresses1.get(indexAddress).displayData();
-                        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                        System.out.println("|                                                        0. Back                                                       |");
-                        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-                        while (true){
-                            try {
-                                System.out.println("Enter 0 to back !");
-                                int choose = Integer.parseInt(IMethod.scanner.nextLine().trim());
-                                if(choose == 0){
-                                    break;
+                        if(indexAddress == -1){
+                            System.err.println("Not found id address !");
+                        }else {
+                            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                            System.out.println("|                                                   "+GetColor.GREEN+"RESULT SEARCH"+GetColor.RESET+"                                                      |");
+                            addresses1.get(indexAddress).displayData();
+                            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                            System.out.println("|                                                        0. Back                                                       |");
+                            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+                            while (true){
+                                try {
+                                    System.out.println("Enter 0 to back !");
+                                    int choose = Integer.parseInt(IMethod.scanner.nextLine().trim());
+                                    if(choose == 0){
+                                        break;
+                                    }
+                                }catch (NumberFormatException e){
+                                    System.out.println("Input invalid !");
                                 }
-                            }catch (NumberFormatException e){
-                                System.out.println("Input invalid !");
                             }
                         }
                         break;
                     }
 
+                    default: {
+                        System.out.println("Choice invalid !");
+                    }
+                }
+            }
+        }
+    }
+    public static void display(Customer customer){
+        List<Address> addresses = customer.getAddresses();
+        int currentPage = 1 ;
+        int itemPerPage = 5 ;
+        if(addresses.isEmpty()){
+            System.err.println("List products is empty !");
+        }else {
+            while (true){
+                addresses = IMethod.listAddresses(customer);
+                int totalPage = (int) Math.ceil((double) addresses.size() /itemPerPage);
+                int skip = (currentPage -1 ) * itemPerPage ;
+                int size = addresses.size();
+                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println("|                                                     "+ GetColor.GREEN+"LIST ADDRESS"+GetColor.RESET+"                                                     |");
+                System.out.println("|━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━|");
+                System.out.printf("| %-8s | %-28s | %-45s | %-13s | %-10s |\n" ,"ID","Receive Name","Address Name","Phone Number","CreateDate");
+                System.out.println("|━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━|");
+                for(int i = skip ; i < (skip + itemPerPage) ; i++){
+                    if(i < size){
+                        addresses.get(i).displayData();
+                    }else {
+                        break;
+                    }
+                }
+                StringBuilder pagination = new StringBuilder();
+                int startPage;
+                int endPage ;
+                if(currentPage < 3){
+                    startPage = 1 ;
+                    endPage = 5 ;
+                }else if(currentPage + 2 <= totalPage){
+                    startPage = currentPage - 2 ;
+                    endPage = currentPage + 2 ;
+                }else {
+                    startPage = totalPage - 4 ;
+                    endPage = totalPage;
+                }
+                for(int i = startPage ; i <= endPage ; i++){
+                    if(i > totalPage){
+                        break;
+                    }
+                    if(i < 1 ){
+                        continue;
+                    }
+                    if(currentPage == i){
+                        pagination.append(GetColor.RED + "[").append(i).append("]").append(GetColor.RESET);
+                    }else {
+                        pagination.append("[").append(i).append("]");
+                    }
+
+                    pagination.append("     ");
+
+                }
+                String rs ="|";
+                int spaceStart = (127 - (pagination.length())) / 2 ;
+                int spaceEnd = (127 - pagination.length()) - spaceStart ;
+                for(int j = 1 ; j <= spaceStart ; j++){
+                    rs += " ";
+                }
+                rs = rs.concat(pagination.toString());
+                for(int j = 1 ; j <= spaceEnd ; j++){
+                    rs += " ";
+                }
+                rs += "|";
+                System.out.println(rs);
+                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println("|             1. Previous               |                 2. Back              |                3. Next                |");
+                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+
+                int choice = IMethod.getNumber("Enter choice : ");
+                switch (choice){
+                    case 1 : {
+                        if(currentPage > 1){
+                            currentPage--;
+                            skip = (currentPage -1 ) * itemPerPage ;
+                        }else {
+                            System.err.println("Cannot previous !");
+                        }
+                        break;
+                    }
+                    case 2 : {
+                        return;
+                    }
+                    case 3 : {
+                        if(currentPage < totalPage){
+                            currentPage++;
+                            skip = (currentPage -1 ) * itemPerPage ;
+                        }else {
+                            System.err.println("Cannot next !");
+                        }
+                        break;
+                    }
                     default: {
                         System.out.println("Choice invalid !");
                     }
@@ -165,6 +268,12 @@ public class AddressFeature {
             addresses1.add(address);
             IMethod.saveAddress(customer,addresses1);
         }
+//        List<Customer> customers = IMethod.listCustomer();
+//        int idCustomer = customer.getCustomerId();
+//        int indexCustomer = customers.stream().map(Customer::getCustomerId).toList().indexOf(idCustomer);
+//        List<Customer> checkLogin = IMethod.checkLogin();
+//        checkLogin.set(0,customers.get(indexCustomer));
+//        IMethod.saveDatabase(IMethod.fileCheckLogin,checkLogin);
         System.out.println("Add success : " + number + " address !");
     }
 }

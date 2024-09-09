@@ -178,8 +178,12 @@ public class IMethod {
             List<Customer> customers = IMethod.listCustomer();
             int idCustomer = customer.getCustomerId();
             int indexCustomer = customers.stream().map(Customer::getCustomerId).toList().indexOf(idCustomer);
-            customers.get(indexCustomer).setAddresses(addresses);
-            IMethod.saveDatabase(IMethod.fileCustomer,customers);
+            if(indexCustomer == -1){
+                System.err.println("Not found customer !");
+            }else {
+                customers.get(indexCustomer).setAddresses(addresses);
+                IMethod.saveDatabase(IMethod.fileCustomer,customers);
+            }
         }
         public static void logout(){
             List<Customer> customers = IMethod.checkLogin();

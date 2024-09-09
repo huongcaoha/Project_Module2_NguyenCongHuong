@@ -1,10 +1,7 @@
 package business.feature;
 
 import business.common.IMethod;
-import business.entity.Customer;
-import business.entity.Order;
-import business.entity.Product;
-import business.entity.ProductCart;
+import business.entity.*;
 import business.util.GetColor;
 import presentation.managementSystem.Shop;
 
@@ -48,40 +45,21 @@ public class PaymentFeature {
                             break;
                         }
                         case 2 : {
-                            String phoneNumber ;
-                            String address ;
-                            String customerName ;
+                            AddressFeature.display(customer);
+                            int idAddress = -1 ;
+                            int indexAddress  = -1;
                             while (true){
-                                System.out.println("Enter the consignee's name : ");
-                                customerName = IMethod.scanner.nextLine().trim();
-                                if(customerName.isEmpty()){
-                                    System.err.println("Cannot be left blank !");
-                                }else {
-                                    break;
-                                }
+                                 idAddress = IMethod.getNumber("Enter id address to receive : ");
+                                 indexAddress = customer.getAddresses().stream().map(Address::getAddressId).toList().indexOf(idAddress);
+                                 if(indexAddress == -1){
+                                     System.err.println("Not found id address !");
+                                 }else {
+                                     break;
+                                 }
                             }
-
-                            while (true){
-                                System.out.println("Enter address : ");
-                                address = IMethod.scanner.nextLine().trim();
-                                if(address.isEmpty()){
-                                    System.err.println("Cannot be left blank !");
-                                }else {
-                                    break;
-                                }
-                            }
-
-                            while (true){
-                                System.out.println("Enter phone number : ");
-                                phoneNumber = IMethod.scanner.nextLine().trim();
-                                if(phoneNumber.matches("^0[35789][0-9]{8}$")){
-                                    break;
-                                }else {
-                                    System.err.println("Phone number invalid !");
-                                }
-                            }
+                            Address address = customer.getAddresses().get(indexAddress);
                             int customerId = IMethod.checkLogin().getFirst().getCustomerId();
-                            Order order = new Order(customerName,customerId,phoneNumber,address,productCarts, (double) sumMoney);
+                            Order order = new Order(address.getReceiveName(),customerId,address.getPhoneNumber(),address.getAddressName(),productCarts, (double) sumMoney);
                             List<Order> orders = IMethod.listOrder();
                             orders.add(order);
                             IMethod.saveDatabase(IMethod.fileOrder,orders);
@@ -169,7 +147,7 @@ public class PaymentFeature {
         System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
         System.out.printf("|                                                                                     Total money : %-29s |\n",format.format(sumMoney)+" VNĐ");
         System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
-        System.out.println("|         1. Previous           |            2. Payment          |             3. Next            |           4. Back             |");
+        System.out.println("|         1. Previous           |            2. Checkout         |             3. Next            |           4. Back             |");
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
     }
 }
