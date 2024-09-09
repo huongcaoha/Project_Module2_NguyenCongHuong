@@ -27,7 +27,7 @@ public class CustomerFeature implements ICRUD <Customer> {
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                 System.out.println("|                                                             LIST CUSTOMER                                                               |");
                 System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┓");
-                System.out.printf("[ %-3s | %-28s | %-8s | %-13s | %-13s | %-28s | %-8s | %-13s ]\n" , "ID","Customer Name","Gender","Birthday","Phone Number","Email","Status","Created Date");
+                System.out.printf("[ %-3s | %-28s | %-8s | %-13s | %-13s | %-28s | %-8s | %-13s ]\n" , "ID","Username","Gender","Birthday","Phone Number","Email","Status","Created Date");
                 System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┛");
                 for(int i = skip ; i < (skip + catePerPage) ; i++){
                     if(i < size){

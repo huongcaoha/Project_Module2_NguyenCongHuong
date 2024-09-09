@@ -85,8 +85,19 @@ public class CartFeature {
                             break;
                         }
                         case 7 : {
-                            PaymentFeature.paymentPage(productCarts,true);
-                           return;
+                            boolean check = true ;
+                            List<Product> products = IMethod.listProduct();
+                            for(ProductCart productCart : productCarts){
+                                int indexProduct = products.stream().map(Product::getProductName).toList().indexOf(productCart.getProductName());
+                                if (productCart.getQuantity() > products.get(indexProduct).getInventory()){
+                                    System.err.println("Cannot checkout because quantity > inventory !");
+                                   check = false ;
+                                }
+                            }
+                           if(check){
+                               PaymentFeature.paymentPage(productCarts,true);
+                           }
+                           break;
                         }
                         default: {
                             System.err.println("Enter choice from 1 to 6 !");

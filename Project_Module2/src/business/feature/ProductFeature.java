@@ -39,7 +39,7 @@ public class ProductFeature implements ICRUD <Product> {
                 StringBuilder pagination = new StringBuilder();
                 int startPage;
                 int endPage ;
-                if(currentPage < 3){
+                if(currentPage <= 3){
                     startPage = 1 ;
                     endPage = 5 ;
                 }else if(currentPage + 2 <= totalPage){

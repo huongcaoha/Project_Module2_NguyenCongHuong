@@ -43,8 +43,19 @@ public class ShopFeature {
                     System.err.println("Not found product !");
                 }
                 StringBuilder pagination = new StringBuilder();
-                int startPage = Math.max(currentPage - 2, 1);
-                int endPage = Math.min(currentPage + 2, totalPage);
+                int startPage ;
+                int endPage ;
+                if(currentPage <= 3){
+                    startPage = 1 ;
+                    endPage = 5 ;
+                }else if(currentPage + 2 <= totalPage){
+                    startPage = currentPage - 2 ;
+                    endPage = currentPage + 2 ;
+                }else {
+                    startPage = totalPage - 4 ;
+                    endPage = totalPage;
+                }
+
                 for(int i = startPage ; i <= endPage ; i++){
                     if(currentPage == i){
                         pagination.append(GetColor.RED + "[").append(i).append("]").append(GetColor.RESET);
@@ -213,12 +224,22 @@ public class ShopFeature {
                     break;
                 }
                 case 2 : {
+
                     if(checkLogin.getFirst() == null){
                         System.err.println("Please log in first !");
                         Login.main(args);
                     }
                     List<ProductCart> listCarts = IMethod.listProductCart();
-                    int quantity = IMethod.getNumber("Enter quantity : ");
+                    int quantity = 0;
+                    while (true){
+                        quantity = IMethod.getNumber("Enter quantity : ");
+                        if(quantity > product.getInventory()){
+                            System.err.println("Quantity > inventory , try enter !");
+                        }else {
+                            break;
+                        }
+                    }
+
                     int indexInCart = listCarts.stream().map(ProductCart::getProductName).toList().indexOf(product.getProductName());
                     if(indexInCart == -1){
                         ProductCart productCart = new ProductCart(idCustomer,product.getProductName(),product.getFinalPrice(),product.getSize(),product.getColor(),product.getCateId(),quantity,product.getFinalPrice()*quantity);
@@ -230,8 +251,6 @@ public class ShopFeature {
                     boolean result = IMethod.saveDatabase("listProductCart.txt",listCarts);
                     if(result){
                         System.out.println("Add to cart successfully !");
-                        products1.get(index).setInventory(products1.get(index).getInventory()-quantity);
-                        IMethod.saveDatabase(IMethod.fileProduct,products1);
                     }else {
                         System.err.println("Add to cart error !");
                     }

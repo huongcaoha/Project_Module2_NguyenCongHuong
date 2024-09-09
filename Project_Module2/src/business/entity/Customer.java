@@ -192,14 +192,14 @@ public class Customer implements Serializable {
     private void inputCustomerName(Scanner scanner) {
         List<Customer> customers = IMethod.listCustomer();
         while (true){
-            System.out.println("Enter customer name :");
+            System.out.println("Enter username :");
             customerName = scanner.nextLine().replaceAll("\\s+","");
             if(customerName.length() >= 6){
                 int index = customers.stream().map(Customer::getCustomerName).toList().indexOf(customerName);
                 if(index == -1){
                     break;
                 }else {
-                    System.err.println("Customer name existed !");
+                    System.err.println("Username existed !");
                 }
 
             }else {

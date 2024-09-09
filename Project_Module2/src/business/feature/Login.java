@@ -15,7 +15,7 @@ public class Login {
         List<Customer> customers = IMethod.getListObject(fileName);
         String customerName ;
         while (true){
-            System.out.println("Enter customer name : ");
+            System.out.println("Enter username : ");
             customerName = scanner.nextLine().trim();
             if(customerName.isEmpty()){
                 System.err.println("Cannot be left blank !");
@@ -60,10 +60,10 @@ public class Login {
                 }
 
             }else {
-                System.err.println("Customer name or password is incorrect !");
+                System.err.println("Username or password is incorrect !");
             }
         }else {
-            System.err.println("Customer name or password is incorrect !");
+            System.err.println("Username name or password is incorrect !");
         }
     }
 }

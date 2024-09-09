@@ -15,3 +15,5 @@ Những file đã test chức năng oke :
 - kiểm tra xóa category nếu đã có sản phẩm thì ko thể xóa category oke
 - hiển thị số lượng sản phẩm ở chi tiết đơn hàng oke
 - làm tính năng tạo mã vận đơn cho mỗi đơn hàng
+
+sửa đổi chỗ đăng ký tài khoản đoạn customer name -> username
