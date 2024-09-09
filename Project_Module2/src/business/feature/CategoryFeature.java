@@ -3,6 +3,7 @@ package business.feature;
 import business.MyInterface.ICRUD;
 import business.common.IMethod;
 import business.entity.Category;
+import business.entity.Product;
 import business.util.GetColor;
 
 import java.awt.*;
@@ -154,8 +155,17 @@ public class CategoryFeature implements ICRUD <Category> {
         if(index == -1){
             System.err.println("Not found category !");
         }else {
-            categories.remove(index);
-            rs  =  IMethod.saveDatabase(fileName,categories);
+            List<Product> products = IMethod.listProduct();
+            int idCatalog = categories.get(index).getCateId();
+            int checkExist = products.stream().map(Product::getCateId).toList().indexOf(idCatalog);
+            String catalogName = categories.get(index).getCateName();
+            if(checkExist == -1){
+                categories.remove(index);
+                rs  =  IMethod.saveDatabase(fileName,categories);
+                System.out.println("Delete success catalog : " + catalogName);
+            }else {
+                System.err.println("Cannot delete catalog : " + catalogName + " because this catalog exist product !");
+            }
         }
         return rs ;
     }

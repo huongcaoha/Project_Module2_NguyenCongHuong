@@ -20,6 +20,7 @@ public class Customer implements Serializable {
     private Date birthday ;
     private String phoneNumber ;
     private String email ;
+    private List<Address> addresses = new ArrayList<>();
     private Role role = Role.CUSTOMER;
     private Boolean status = true ;
     private Date createdDate ;
@@ -43,6 +44,10 @@ public class Customer implements Serializable {
         inputPhoneNumber(scanner);
 
         inputEmail(scanner);
+
+        Address address = new Address();
+        address.inputData(IMethod.scanner,this.addresses);
+        this.addresses.add(address);
 
         this.createdDate = new Date() ;
     }
@@ -114,7 +119,7 @@ public class Customer implements Serializable {
             if(phoneNumber.matches("^0[35789][0-9]{8}$")){
                 break;
             }else {
-                System.err.println("Phone numberr invalid !");
+                System.err.println("Phone number invalid !");
             }
         }
     }
@@ -211,6 +216,14 @@ public class Customer implements Serializable {
         }else {
             return 1;
         }
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Role getRole() {

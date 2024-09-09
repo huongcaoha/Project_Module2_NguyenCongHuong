@@ -11,3 +11,7 @@ Những file đã test chức năng oke :
 + view cart oke
 + history order oke
 + favorite oke
+
+- kiểm tra xóa category nếu đã có sản phẩm thì ko thể xóa category oke
+- hiển thị số lượng sản phẩm ở chi tiết đơn hàng oke
+- làm tính năng tạo mã vận đơn cho mỗi đơn hàng

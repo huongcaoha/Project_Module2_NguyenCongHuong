@@ -58,9 +58,12 @@ public class Demo {
 
 //        System.out.printf("[%-30s | %-10s | %-10d ]\n" , "huongcaoha","123456789",50);
 //        System.out.printf("[%-30s | %-10s | %-10d ]\n","123","456",123456789);
-    List<Customer> customers = IMethod.listCustomer();
-    int index = customers.stream().map(Customer::getCustomerId).toList().indexOf(1);
-    customers.get(index).updateCustomerStatus();
-    IMethod.saveDatabase(IMethod.fileCustomer,customers);
+
+        List<Customer> customers = IMethod.listCustomer();
+        Customer customer = new Customer();
+        customer.inputData(IMethod.scanner);
+        customer.setRole(Role.ADMIN);
+        customers.add(customer);
+        IMethod.saveDatabase(IMethod.fileCustomer,customers);
     }
 }

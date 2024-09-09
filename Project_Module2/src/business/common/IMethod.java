@@ -163,6 +163,24 @@ public class IMethod {
         public static List<FavoriteProduct> listFavoriteProduct(){
             return getListObject(fileFavoriteProduct);
         }
+        public static List<Address> listAddresses(Customer customer){
+            List<Address> addresses = new ArrayList<>() ;
+            int idCustomer = customer.getCustomerId();
+            List<Customer> customers = IMethod.listCustomer();
+            int indexCustomer = customers.stream().map(Customer::getCustomerId).toList().indexOf(idCustomer);
+            if(indexCustomer == - 1){
+                 return addresses ;
+            }else {
+                return customers.get(indexCustomer).getAddresses();
+            }
+        }
+        public static void saveAddress(Customer customer , List<Address> addresses){
+            List<Customer> customers = IMethod.listCustomer();
+            int idCustomer = customer.getCustomerId();
+            int indexCustomer = customers.stream().map(Customer::getCustomerId).toList().indexOf(idCustomer);
+            customers.get(indexCustomer).setAddresses(addresses);
+            IMethod.saveDatabase(IMethod.fileCustomer,customers);
+        }
         public static void logout(){
             List<Customer> customers = IMethod.checkLogin();
             customers.set(0,null);
