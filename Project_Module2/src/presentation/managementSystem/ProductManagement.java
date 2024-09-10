@@ -11,13 +11,13 @@ public class ProductManagement {
         String fileName = "listProduct.txt";
         ProductFeature productFeature = new ProductFeature();
         while (true){
-            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━ PRODUCTS MANAGEMENT ━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-            System.out.println("|                                        |                                    |                                        |");
-            System.out.println("|      1. Display list products          |        2. Add new product          |           3. Update product            |");
-            System.out.println("|                                        |                                    |                                        |");
-            System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┻━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━ PRODUCTS MANAGEMENT ━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("|                              |                            |                           |                              |");
-            System.out.println("|      4. Delete product       |     5. Search product      |     6. Sort product       |           7. Back            |");
+            System.out.println("|   1. Display list products   |     2. Add new product     |    3. Update product      |   4. Search product by id    |");
+            System.out.println("|                              |                            |                           |                              |");
+            System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+            System.out.println("|                              |                            |                           |                              |");
+            System.out.println("|      5. Delete product       |     6. Search product      |     7. Sort product       |           8. Back            |");
             System.out.println("|                              |                            |                           |                              |");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             int choice = IMethod.getNumber("Enter choice : ");
@@ -36,18 +36,21 @@ public class ProductManagement {
                     break;
                 }
                 case 4 : {
-                    productFeature.delete();
+                    productFeature.searchProductById();
                     break;
                 }
                 case 5 : {
-                    productFeature.searchProduct();
+                    productFeature.delete();
                     break;
                 }
                 case 6 : {
-                    productFeature.sortProduct();
+                    productFeature.searchProduct();
                     break;
                 }
                 case 7 : {
+                    productFeature.sortProduct();
+                }
+                case 8 : {
                     return;
                 }
                 default:{

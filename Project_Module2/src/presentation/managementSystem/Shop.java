@@ -10,6 +10,8 @@ import presentation.run.Main;
 import java.util.List;
 import java.util.Objects;
 
+import static business.feature.AddressFeature.displayListAddress;
+
 public class Shop {
     public static void main(String[] args) {
         while (true){
@@ -21,11 +23,11 @@ public class Shop {
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|        1. Display list products        |    2. View personal information    |              3. View cart              |");
             System.out.println("|                                        |                                    |                                        |");
-            System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
-            System.out.println("|                                        |                                    |                                        |");
-            System.out.println("|        4. Orders history               |          5. Favorites list         |             6. Logout / Login          |");
-            System.out.println("|                                        |                                    |                                        |");
-            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+            System.out.println("|                          |                               |                               |                           |");
+            System.out.println("|     4. Orders history    |       5. Favorites list       |    6. Display list address    |    7. Logout / Login      |");
+            System.out.println("|                          |                               |                               |                           |");
+            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
             int choice = IMethod.getNumber("Enter choice : ");
             switch (choice){
@@ -62,6 +64,15 @@ public class Shop {
                     break;
                 }
                 case 6 : {
+                    Customer customer = IMethod.checkLogin().getFirst();
+                    if(customer == null){
+                        System.err.println("Please log in first !");
+                    }else {
+                        displayListAddress(customer);
+                    }
+                    break;
+                }
+                case 7 : {
                     IMethod.logout();
                     Main.main(args);
                     break;

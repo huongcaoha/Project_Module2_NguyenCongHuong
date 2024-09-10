@@ -269,7 +269,7 @@ public class ShopFeature {
                     break;
                 }
                 case 4 : {
-                    return true;
+                    break;
                 }
                 default: {
                     System.err.println("Enter choice from 1 to 4 !");

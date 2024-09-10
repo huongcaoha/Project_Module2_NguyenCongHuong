@@ -111,6 +111,20 @@ public class ProductFeature implements ICRUD <Product> {
             }
         }
     }
+    public void searchProductById(){
+        int idProduct = IMethod.getNumber("Enter id product to search : ");
+        List<Product> products = IMethod.listProduct();
+        int indexProduct = products.stream().map(Product::getProductId).toList().indexOf(idProduct);
+        if(indexProduct == -1){
+            System.err.println("Not found product id !");
+        }else {
+            List<Product> products1 = new ArrayList<>();
+            products1.add(products.get(indexProduct));
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|                                                      "+GetColor.GREEN+"RESULT SEARCH"+GetColor.RESET+"                                                        |");
+            displayList(products1);
+        }
+    }
 
     @Override
     public boolean add() {
@@ -178,7 +192,7 @@ public class ProductFeature implements ICRUD <Product> {
             }
         }
         String finalSearch = search;
-        List<Product> rs = products.stream().filter(product -> product.getProductName().contains(finalSearch)).toList();
+        List<Product> rs = products.stream().filter(product -> product.getProductName().contains(finalSearch) || product.getDescription().contains(finalSearch)).toList();
         if(rs.isEmpty()){
             System.err.println("List product empty or not found name product !");
         }else {

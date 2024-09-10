@@ -119,6 +119,9 @@ public class AddressFeature {
                         }else {
                             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                             System.out.println("|                                                   "+GetColor.GREEN+"RESULT SEARCH"+GetColor.RESET+"                                                      |");
+                            System.out.println("|━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━|");
+                            System.out.printf("| %-8s | %-28s | %-45s | %-13s | %-10s |\n" ,"ID","Receive Name","Address Name","Phone Number","CreateDate");
+                            System.out.println("|━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━|");
                             addresses1.get(indexAddress).displayData();
                             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                             System.out.println("|                                                        0. Back                                                       |");
