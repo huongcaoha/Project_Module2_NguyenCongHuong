@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class PaymentFeature {
-    public static void paymentPage(List<ProductCart> productCarts,boolean deleteCart){
+    public void paymentPage(List<ProductCart> productCarts,boolean deleteCart){
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
         System.out.println("|                                                         "+GetColor.GREEN+"PAGE : PAYMENT"+GetColor.RESET+"                                                          |");
         List<Customer> checkLogin = IMethod.checkLogin();
@@ -45,7 +45,16 @@ public class PaymentFeature {
                             break;
                         }
                         case 2 : {
-                            AddressFeature.display(customer);
+                            if(customer.getAddresses().isEmpty()){
+                                System.out.println("Please enter a new address : ");
+                                Address address = new Address();
+                                address.inputData(IMethod.scanner,customer.getAddresses());
+                                customer.getAddresses().add(address);
+                                checkLogin.set(0,customer);
+                                IMethod.saveAddress(customer,customer.getAddresses());
+                            }
+                            AddressFeature addressFeature = new AddressFeature();
+                            addressFeature.display();
                             int idAddress = -1 ;
                             int indexAddress  = -1;
                             while (true){
@@ -104,7 +113,7 @@ public class PaymentFeature {
 
     }
 
-    private static void displayCart(int skip, int itemPerPage, int size, List<ProductCart> productCarts, int currentPage, int totalPage, int sumMoney) {
+    private void displayCart(int skip, int itemPerPage, int size, List<ProductCart> productCarts, int currentPage, int totalPage, int sumMoney) {
 
         NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");

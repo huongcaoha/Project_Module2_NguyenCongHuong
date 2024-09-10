@@ -45,9 +45,9 @@ public class Customer implements Serializable {
 
         inputEmail(scanner);
 
-        Address address = new Address();
-        address.inputData(IMethod.scanner,this.addresses);
-        this.addresses.add(address);
+//        Address address = new Address();
+//        address.inputData(IMethod.scanner,this.addresses);
+//        this.addresses.add(address);
 
         this.createdDate = new Date() ;
     }

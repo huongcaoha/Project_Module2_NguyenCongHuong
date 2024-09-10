@@ -14,7 +14,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class ShopFeature {
-    public static void displayList(String[] args ,List<Product> products){
+    public void displayList(String[] args ,List<Product> products){
         ProductFeature productFeature = new ProductFeature();
         int currentPage = 1 ;
         int itemPerPage = 5 ;
@@ -142,7 +142,7 @@ public class ShopFeature {
         }
     }
 
-    private static void searchProductByCatalog(List<Product> products) {
+    private void searchProductByCatalog(List<Product> products) {
         List<Category> categories = IMethod.listCategory();
         CategoryFeature categoryFeature = new CategoryFeature();
         categoryFeature.displayList(categories);
@@ -163,7 +163,7 @@ public class ShopFeature {
         productFeature.displayList(products);
     }
 
-    private static boolean seeProductDetail(String[] args) {
+    private boolean seeProductDetail(String[] args) {
         List<Customer> checkLogin = IMethod.checkLogin();
         List<Product> products1 = IMethod.listProduct();
         int idProduct = IMethod.getNumber("Enter id product : ");
@@ -265,7 +265,8 @@ public class ShopFeature {
                     ProductCart productCart = new ProductCart(idCustomer,product.getProductName(),product.getFinalPrice(),product.getSize(),product.getColor(),product.getCateId(),quantity,product.getFinalPrice()*quantity);
                     List<ProductCart> listCarts = new ArrayList<>();
                     listCarts.add(productCart);
-                    PaymentFeature.paymentPage(listCarts,false);
+                    PaymentFeature paymentFeature = new PaymentFeature();
+                    paymentFeature.paymentPage(listCarts,false);
                     break;
                 }
                 case 4 : {

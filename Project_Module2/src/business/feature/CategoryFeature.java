@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class CategoryFeature implements ICRUD <Category> {
     Scanner scanner = new Scanner(System.in);
     String fileName = "listCategory.txt";
+
     @Override
     public void displayList(List<Category> categories) {
         int currentPage = 1 ;

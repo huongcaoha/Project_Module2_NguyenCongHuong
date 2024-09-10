@@ -10,13 +10,17 @@ import presentation.run.Main;
 import java.util.List;
 import java.util.Objects;
 
-import static business.feature.AddressFeature.displayListAddress;
 
 public class Shop {
     public static void main(String[] args) {
+        ShopFeature shopFeature = new ShopFeature();
+        InformationFeature informationFeature = new InformationFeature();
+        CartFeature cartFeature = new CartFeature();
+        HistoryOrder historyOrder = new HistoryOrder();
+        FavoritesFeature favoritesFeature = new FavoritesFeature();
+        AddressFeature addressFeature = new AddressFeature();
         while (true){
-            String fileCheckLogin = "checkLogin.txt";
-            List<Customer> checkLogin = IMethod.getListObject(fileCheckLogin);
+            List<Customer> checkLogin = IMethod.checkLogin();
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.printf("|   Hello , %-28s |\n",checkLogin.getFirst() == null ? "Customer !" : checkLogin.getFirst().getCustomerName() + " !");
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━ SHOPPING ━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
@@ -33,15 +37,15 @@ public class Shop {
             switch (choice){
                 case 1 : {
                     List<Product> products = IMethod.listProduct();
-                    ShopFeature.displayList(args,products);
+                    shopFeature.displayList(args,products);
                     break;
                 }
                 case 2 : {
-                InformationFeature.viewInformation();
+                informationFeature.viewInformation();
                     break;
                 }
                 case 3 : {
-                CartFeature.viewCart(checkLogin.getFirst());
+                cartFeature.viewCart(checkLogin.getFirst());
                     break;
                 }
                 case 4 : {
@@ -50,7 +54,7 @@ public class Shop {
                         System.err.println("Please log in first !");
                         Home.main(args);
                     }else {
-                        HistoryOrder.displayList(customer);
+                        historyOrder.displayList(customer);
                     }
                     break;
                 }
@@ -59,7 +63,7 @@ public class Shop {
                     if(customer == null){
                         System.err.println("Please log in first !");
                     }else {
-                        FavoritesFeature.displayFavorites(customer);
+                        favoritesFeature.displayFavorites(customer);
                     }
                     break;
                 }
@@ -68,7 +72,7 @@ public class Shop {
                     if(customer == null){
                         System.err.println("Please log in first !");
                     }else {
-                        displayListAddress(customer);
+                        addressFeature.displayListAddress();
                     }
                     break;
                 }

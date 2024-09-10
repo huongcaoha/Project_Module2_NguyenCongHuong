@@ -14,7 +14,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class FavoritesFeature {
-    public static void displayFavorites(Customer customer) {
+    public void displayFavorites(Customer customer) {
         List<FavoriteProduct> products = IMethod.listFavoriteProduct().stream().filter(favoriteProduct -> Objects.equals(favoriteProduct.getCustomerId(), customer.getCustomerId())).toList();
         int currentPage = 1 ;
         int itemPerPage = 5 ;

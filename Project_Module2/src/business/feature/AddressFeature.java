@@ -8,15 +8,16 @@ import business.util.GetColor;
 import java.util.List;
 
 public class AddressFeature {
-    public static void displayListAddress(Customer customer){
+    public void displayListAddress(){
+       Customer customer = IMethod.checkLogin().getFirst();
         List<Address> addresses = customer.getAddresses();
         int currentPage = 1 ;
         int itemPerPage = 5 ;
-        if(addresses.isEmpty()){
-            System.err.println("List products is empty !");
-        }else {
             while (true){
                 addresses = IMethod.listAddresses(customer);
+                if(addresses.isEmpty()){
+                    System.err.println("List address is empty !");
+                }
                int totalPage = (int) Math.ceil((double) addresses.size() /itemPerPage);
                int skip = (currentPage -1 ) * itemPerPage ;
                 int size = addresses.size();
@@ -146,17 +147,14 @@ public class AddressFeature {
                     }
                 }
             }
-        }
+
     }
-    public static void display(Customer customer){
-        List<Address> addresses = customer.getAddresses();
+    public void display(){
         int currentPage = 1 ;
         int itemPerPage = 5 ;
-        if(addresses.isEmpty()){
-            System.err.println("List products is empty !");
-        }else {
             while (true){
-                addresses = IMethod.listAddresses(customer);
+                Customer customer = IMethod.checkLogin().getFirst();
+                List<Address> addresses = customer.getAddresses();
                 int totalPage = (int) Math.ceil((double) addresses.size() /itemPerPage);
                 int skip = (currentPage -1 ) * itemPerPage ;
                 int size = addresses.size();
@@ -245,10 +243,9 @@ public class AddressFeature {
                     }
                 }
             }
-        }
     }
 
-    private static void deleteAddress(Customer customer) {
+    private void deleteAddress(Customer customer) {
         List<Address> addresses1 = IMethod.listAddresses(customer);
         int idAddress = IMethod.getNumber("Enter id address want delete : ");
         int indexAddress = addresses1.stream().map(Address::getAddressId).toList().indexOf(idAddress);
@@ -261,7 +258,7 @@ public class AddressFeature {
         }
     }
 
-    private static void addAddress(Customer customer) {
+    private void addAddress(Customer customer) {
         List<Address> addresses1 = IMethod.listAddresses(customer);
         int number = IMethod.getNumber("Enter number address want add : ");
         for(int i = 1 ; i <= number ; i++){

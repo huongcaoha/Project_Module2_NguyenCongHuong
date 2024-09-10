@@ -126,7 +126,8 @@ public class Product implements Serializable {
             try {
                 System.out.println("Enter id category : ");
                 this.cateId = Integer.parseInt(scanner.nextLine().trim());
-                if(IMethod.checkExisCategory(cateId)){
+                boolean checkExist = IMethod.listCategory().stream().anyMatch(category -> Objects.equals(category.getCateId(), cateId));
+                if(checkExist){
                     break;
                 }else {
                     System.out.println("Cate id not match !");
@@ -214,7 +215,9 @@ public class Product implements Serializable {
 
         inputDescription(scanner);
 
-        IMethod.displayListCategory();
+        CategoryFeature categoryFeature = new CategoryFeature();
+        List<Category> categories = IMethod.listCategory();
+        categoryFeature.displayList(categories);
 
         inputIdCategory(scanner);
 
@@ -350,10 +353,4 @@ public class Product implements Serializable {
         System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━━━━━━┛");
     }
 
-
-//    public static void main(String[] args) {
-//        Product product = new Product();
-//        product.inputData();
-//        product.displayData();
-//    }
 }

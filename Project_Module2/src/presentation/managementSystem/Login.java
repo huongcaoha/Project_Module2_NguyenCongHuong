@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Login {
     public static void main(String[] args) {
+        business.feature.Login login = new business.feature.Login();
         String fileCheckLogin = "checkLogin.txt";
        while (true){
            Scanner scanner = new Scanner(System.in);
@@ -22,7 +23,7 @@ public class Login {
            int choice = IMethod.getNumber("Enter your choice : ");
            switch (choice){
                case 1 : {
-                   business.feature.Login.login(args, scanner, fileCheckLogin);
+                   login.login(args, scanner, fileCheckLogin);
                    break;
                }
                case 2 : {
@@ -30,7 +31,8 @@ public class Login {
                    break;
                }
                case 3 : {
-                   ForgetPassword.forgetPassword();
+                   ForgetPassword forgetPassword = new ForgetPassword();
+                   forgetPassword.forgetPassword();
                    break;
                }
                case 4 : {

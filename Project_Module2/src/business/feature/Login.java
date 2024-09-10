@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Login {
-    public static void login(String[] args, Scanner scanner, String fileCheckLogin) {
+    public void login(String[] args, Scanner scanner, String fileCheckLogin) {
         String fileName = "listCustomer.txt" ;
         List<Customer> customers = IMethod.getListObject(fileName);
         String customerName ;

@@ -7,10 +7,10 @@ import business.util.GetColor;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static business.feature.AddressFeature.displayListAddress;
 
 public class InformationFeature {
-    public static void viewInformation(){
+   static AddressFeature addressFeature = new AddressFeature();
+    public void viewInformation(){
         List<Customer> checkLogin = IMethod.checkLogin();
         Customer customer = checkLogin.getFirst();
         if(checkLogin.getFirst() == null){

@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class Home {
     public static void main(String[] args) {
+        Login login = new Login();
         Scanner scanner = new Scanner(System.in);
         List<Customer> checkLogin = IMethod.checkLogin();
        if(checkLogin.getFirst() != null){
@@ -31,7 +32,7 @@ public class Home {
                     break;
                 }
                 case 2 : {
-                    Login.login(args, scanner, IMethod.fileCheckLogin);
+                    login.login(args, scanner, IMethod.fileCheckLogin);
                     break;
                 }
                 case 3 : {
@@ -39,7 +40,8 @@ public class Home {
                     break;
                 }
                 case 4 : {
-                    ForgetPassword.forgetPassword();
+                    ForgetPassword forgetPassword = new ForgetPassword();
+                    forgetPassword.forgetPassword();
                     break;
                 }
                 case 5 : {

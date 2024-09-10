@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class CartFeature {
-    public static void viewCart(Customer customer){
+    public void viewCart(Customer customer){
         List<Customer> checkLogin = IMethod.checkLogin();
         if(checkLogin.getFirst() == null){
             System.err.println("Please log in first !");
@@ -95,7 +95,8 @@ public class CartFeature {
                                 }
                             }
                            if(check){
-                               PaymentFeature.paymentPage(productCarts,true);
+                               PaymentFeature paymentFeature = new PaymentFeature();
+                               paymentFeature.paymentPage(productCarts,true);
                            }
                            break;
                         }
@@ -109,7 +110,7 @@ public class CartFeature {
 
     }
 
-    private static void updateQuantityProduct(List<ProductCart> productCarts) {
+    private void updateQuantityProduct(List<ProductCart> productCarts) {
         List<Product> products = IMethod.listProduct();
         int idProductCart = IMethod.getNumber("Enter id product cart want update : ");
         List<ProductCart> carts = IMethod.listProductCart();
@@ -130,7 +131,7 @@ public class CartFeature {
             System.out.println("Update quantity product successfully !");
         }
     }
-    private static void displayCart(int skip, int itemPerPage, int size, List<ProductCart> productCarts, int currentPage, int totalPage, int sumMoney) {
+    private void displayCart(int skip, int itemPerPage, int size, List<ProductCart> productCarts, int currentPage, int totalPage, int sumMoney) {
 
         NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");

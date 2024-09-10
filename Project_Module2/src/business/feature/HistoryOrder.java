@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class HistoryOrder {
-    public static void seeOrderDetail(){
+    public void seeOrderDetail(){
         Customer customer = IMethod.checkLogin().getFirst();
         List<Order> orders = IMethod.listOrder().stream().filter(order -> Objects.equals(order.getCustomerId(), customer.getCustomerId())).toList();
         int orderId = IMethod.getNumber("Enter order id : ");
@@ -21,7 +21,7 @@ public class HistoryOrder {
             productCartFeature.displayList(rs.getCarts());
         }
     }
-    public static void displayList(Customer customer) {
+    public void displayList(Customer customer) {
         OrderFeature orderFeature = new OrderFeature();
         List<Order> orders = IMethod.listOrder().stream().filter(order -> Objects.equals(order.getCustomerId(), customer.getCustomerId())).toList();
         int currentPage = 1 ;
