@@ -21,6 +21,7 @@ public class PaymentFeature {
             int currentPage = 1 ;
             int itemPerPage = 5 ;
             while (true){
+                customer = IMethod.checkLogin().getFirst();
                 int skip = (currentPage -1 ) * itemPerPage ;
                 int totalPage = (int) Math.ceil((double) productCarts.size() /itemPerPage);
                 int size = productCarts.size();
@@ -45,12 +46,14 @@ public class PaymentFeature {
                             break;
                         }
                         case 2 : {
+                            customer = IMethod.checkLogin().getFirst();
                             if(customer.getAddresses().isEmpty()){
                                 System.out.println("Please enter a new address : ");
                                 Address address = new Address();
                                 address.inputData(IMethod.scanner,customer.getAddresses());
                                 customer.getAddresses().add(address);
                                 checkLogin.set(0,customer);
+                                IMethod.saveDatabase(IMethod.fileCheckLogin,checkLogin);
                                 IMethod.saveAddress(customer,customer.getAddresses());
                             }
                             AddressFeature addressFeature = new AddressFeature();

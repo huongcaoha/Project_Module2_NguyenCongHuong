@@ -246,6 +246,7 @@ public class AddressFeature {
     }
 
     private void deleteAddress(Customer customer) {
+        List<Customer> checkLogin = IMethod.checkLogin();
         List<Address> addresses1 = IMethod.listAddresses(customer);
         int idAddress = IMethod.getNumber("Enter id address want delete : ");
         int indexAddress = addresses1.stream().map(Address::getAddressId).toList().indexOf(idAddress);
@@ -254,6 +255,8 @@ public class AddressFeature {
         }else {
             addresses1.remove(indexAddress);
             IMethod.saveAddress(customer,addresses1);
+            checkLogin.getFirst().setAddresses(addresses1);
+            IMethod.saveDatabase(IMethod.fileCheckLogin,checkLogin);
             System.out.println("Delete success address !");
         }
     }
