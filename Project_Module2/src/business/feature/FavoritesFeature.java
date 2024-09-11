@@ -3,14 +3,9 @@ package business.feature;
 import business.common.IMethod;
 import business.entity.Customer;
 import business.entity.FavoriteProduct;
-import business.entity.Product;
-import business.entity.ProductCart;
 import business.util.GetColor;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class FavoritesFeature {
@@ -80,7 +75,7 @@ public class FavoritesFeature {
                 rs += "|";
                 System.out.println(rs);
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|             1. Previous              |                 2. Back                  |             3. Next              |");
+                System.out.println("|          1. Previous page            |                 2. Back                  |          3. Next page            |");
                 System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
                 System.out.println("|                                                4. Delete favorite product                                          |");
                 System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");

@@ -2,8 +2,9 @@ package presentation.managementSystem;
 
 import business.common.IMethod;
 import business.entity.Customer;
-import business.entity.Role;
+import business.feature.ForgetPassword;
 import business.feature.Login;
+import business.feature.Register;
 import business.util.GetColor;
 
 import java.util.List;

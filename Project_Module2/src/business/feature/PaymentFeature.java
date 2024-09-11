@@ -3,8 +3,6 @@ package business.feature;
 import business.common.IMethod;
 import business.entity.*;
 import business.util.GetColor;
-import presentation.managementSystem.Shop;
-
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -159,7 +157,7 @@ public class PaymentFeature {
         System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
         System.out.printf("|                                                                                     Total money : %-29s |\n",format.format(sumMoney)+" VNĐ");
         System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
-        System.out.println("|         1. Previous           |            2. Checkout         |             3. Next            |           4. Back             |");
+        System.out.println("|      1. Previous page         |            2. Checkout         |          3. Next page          |           4. Back             |");
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
     }
 }

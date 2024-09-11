@@ -6,8 +6,6 @@ import business.entity.Order;
 import business.entity.Product;
 import business.entity.ProductCart;
 import business.util.GetColor;
-
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -66,7 +64,7 @@ public class OrderFeature implements ICRUD <Order> {
                rs += "|";
                System.out.println(rs);
                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-               System.out.println("|                  1. Previous                |                      2. Back                   |                  3. Next                |");
+               System.out.println("|               1. Previous page              |                      2. Back                   |               3. Next page              |");
                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
 
                int choice = IMethod.getNumber("Enter choice : ");
@@ -168,7 +166,7 @@ public class OrderFeature implements ICRUD <Order> {
             System.err.println("Not found order id !");
         }else {
             productCartFeature.displayList(rs.getCarts());
-            System.out.println("Total money : " + rs.getTotalMoney());
+
         }
 
     }

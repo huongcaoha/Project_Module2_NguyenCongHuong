@@ -23,7 +23,7 @@ public class StatisticalManagement {
         int totalProduct = products.size();
         int totalOrder = orders.size();
         int totalCustomer = customers.size();
-        Integer currentMonth = LocalDate.now().getMonthValue();
+        int currentMonth = LocalDate.now().getMonthValue();
         Date date = new Date(); // Lấy thời gian hiện tại
 
         double salesMonth = orders.stream()
@@ -98,7 +98,7 @@ public class StatisticalManagement {
                     while (true){
                         try {
                             System.out.println("Enter 0 to back !");
-                            Integer exit = Integer.parseInt(IMethod.scanner.nextLine().trim());
+                            int exit = Integer.parseInt(IMethod.scanner.nextLine().trim());
                             if(exit == 0){
                                 break;
                             }else {

@@ -45,9 +45,6 @@ public class Customer implements Serializable {
 
         inputEmail(scanner);
 
-//        Address address = new Address();
-//        address.inputData(IMethod.scanner,this.addresses);
-//        this.addresses.add(address);
 
         this.createdDate = new Date() ;
     }
@@ -102,7 +99,7 @@ public class Customer implements Serializable {
     }
     private void inputEmail(Scanner scanner) {
         while (true){
-            System.out.println("Enter email :");
+            System.out.println("Enter email (name email >= 8 character):");
             email = scanner.nextLine().trim();
             if(email.matches("^\\w{8,}@\\w{2,}\\.[a-zA-Z]{2,}$")){
                 break;

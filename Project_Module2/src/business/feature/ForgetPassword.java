@@ -1,4 +1,4 @@
-package presentation.managementSystem;
+package business.feature;
 
 import business.common.IMethod;
 import business.entity.Customer;

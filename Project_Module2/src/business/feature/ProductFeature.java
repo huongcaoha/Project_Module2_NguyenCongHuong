@@ -4,9 +4,7 @@ import business.MyInterface.ICRUD;
 import business.common.IMethod;
 import business.entity.Product;
 import business.util.GetColor;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -78,7 +76,7 @@ public class ProductFeature implements ICRUD <Product> {
                 rs += "|";
                 System.out.println(rs);
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|               1. Previous               |                   2. Back                 |              3. Next                |");
+                System.out.println("|            1. Previous page             |                   2. Back                 |           3. Next page              |");
                 System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
 
                 int choice = IMethod.getNumber("Enter choice : ");

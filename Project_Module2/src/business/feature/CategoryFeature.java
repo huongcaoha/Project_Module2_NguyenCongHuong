@@ -64,7 +64,7 @@ public class CategoryFeature implements ICRUD <Category> {
                rs += "|";
                System.out.println(rs);
                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-               System.out.println("|        1. Previous         |         2. Back          |         3. Next           |");
+               System.out.println("|     1. Previous page       |         2. Back          |        3. Next page       |");
                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
 
                int choice = IMethod.getNumber("Enter choice : ");

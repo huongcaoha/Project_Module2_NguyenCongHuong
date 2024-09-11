@@ -77,7 +77,7 @@ public class AddressFeature {
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                 System.out.println("|             1. Previous               |                 2. Back              |                3. Next                |");
                 System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
-                System.out.println("|             4. Add address            |            5. Delete address         |        6. Search address by id        |                     |");
+                System.out.println("|             4. Add address            |            5. Delete address         |        6. Search address by id        |");
                 System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
                 int choice = IMethod.getNumber("Enter choice : ");
@@ -212,7 +212,7 @@ public class AddressFeature {
                 rs += "|";
                 System.out.println(rs);
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|             1. Previous               |                 2. Back              |                3. Next                |");
+                System.out.println("|           1. Previous page            |                 2. Back              |            3. Next page               |");
                 System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
                 int choice = IMethod.getNumber("Enter choice : ");
@@ -271,12 +271,6 @@ public class AddressFeature {
             addresses1.add(address);
             IMethod.saveAddress(customer,addresses1);
         }
-//        List<Customer> customers = IMethod.listCustomer();
-//        int idCustomer = customer.getCustomerId();
-//        int indexCustomer = customers.stream().map(Customer::getCustomerId).toList().indexOf(idCustomer);
-//        List<Customer> checkLogin = IMethod.checkLogin();
-//        checkLogin.set(0,customers.get(indexCustomer));
-//        IMethod.saveDatabase(IMethod.fileCheckLogin,checkLogin);
         System.out.println("Add success : " + number + " address !");
     }
 }

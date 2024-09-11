@@ -1,9 +1,10 @@
 package presentation.managementSystem;
 
 import business.common.IMethod;
+import business.feature.ForgetPassword;
+import business.feature.Register;
 import business.util.GetColor;
 
-import java.awt.*;
 import java.util.Scanner;
 
 public class Login {
