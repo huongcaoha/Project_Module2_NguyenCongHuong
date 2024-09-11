@@ -3,10 +3,14 @@ package business.feature;
 import business.MyInterface.ICRUD;
 import business.common.IMethod;
 import business.entity.Order;
+import business.entity.Product;
+import business.entity.ProductCart;
 import business.util.GetColor;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public class OrderFeature implements ICRUD <Order> {
@@ -200,23 +204,71 @@ public class OrderFeature implements ICRUD <Order> {
     }
 
     public void searchOrderByDay(List<Order> orders){
-        int startDay = IMethod.getNumber("Enter start day : ");
-        int endDay ;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date startDay ;
+        Date endDay ;
         while (true){
-            endDay = IMethod.getNumber("Enter end day : ");
-            if(endDay < startDay){
-                System.err.println("Enter end day >= start day !");
+            System.out.println("Enter start day (dd/MM/yyyy) : ");
+            String day = IMethod.scanner.nextLine().trim();
+            if(day.matches("^[0-3][0-9]/[01][0-9]/[0-9]{4}$")){
+                List<String> arr = new ArrayList<>(Arrays.asList(day.split("/")));
+                LocalDate localDate = LocalDate.of(Integer.parseInt(arr.get(2)),Integer.parseInt(arr.get(1)),1);
+                int dayOfMonth = localDate.lengthOfMonth();
+                if(Integer.parseInt(arr.get(1)) > 12 && Integer.parseInt(arr.get(1)) > 0){
+                    System.err.println("Month invalid (0 < month < 12) !");
+                }else {
+                    if(Integer.parseInt(arr.get(0)) > dayOfMonth){
+                        System.err.println("Month " + arr.get(1) + " have " + dayOfMonth + " day !");
+                    }else {
+                        try {
+                            startDay = simpleDateFormat.parse(day);
+                            break;
+                        } catch (ParseException e) {
+                            System.err.println("Input invalid !");
+                        }
+                    }
+                }
             }else {
-                break;
+                System.err.println("Start day invalid !");
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        int finalEndDay = endDay;
-        orders = orders.stream().filter(order -> {
-            calendar.setTime(order.getCreatedDate());
-            System.out.println(calendar.DAY_OF_MONTH + "start day : " + startDay + " , end day : " + finalEndDay);
-            return calendar.DAY_OF_MONTH+1 >= startDay && calendar.DAY_OF_MONTH <= finalEndDay;
-        }).toList();
+
+        while (true){
+            System.out.println("Enter end day (dd/MM/yyyy) : ");
+            String day = IMethod.scanner.nextLine().trim();
+            if(day.matches("^[0-3][0-9]/[01][0-9]/[0-9]{4}$")){
+                List<String> arr = new ArrayList<>(Arrays.asList(day.split("/")));
+                LocalDate localDate = LocalDate.of(Integer.parseInt(arr.get(2)),Integer.parseInt(arr.get(1)),1);
+                int dayOfMonth = localDate.lengthOfMonth();
+                if(Integer.parseInt(arr.get(1)) > 12 && Integer.parseInt(arr.get(1)) > 0){
+                    System.err.println("Month invalid (0 < month < 12) !");
+                }else {
+                    if(Integer.parseInt(arr.get(0)) > dayOfMonth){
+                        System.err.println("Month " + arr.get(1) + " have " + dayOfMonth + " day !");
+                    }else {
+                        try {
+                            endDay = simpleDateFormat.parse(day);
+                            if (! (startDay.compareTo(endDay) > 0)){
+                                break;
+                            }else {
+                                System.err.println("Enter end day > start day ! ");
+                            }
+
+                        } catch (ParseException e) {
+                            System.err.println("Input invalid !");
+                        }
+                    }
+                }
+            }else {
+                System.err.println("End day invalid !");
+            }
+        }
+
+        Date finalStartDay = startDay;
+        Date finalEndDay = endDay;
+        orders = orders.stream()
+                .filter(order -> order.getCreatedDate().compareTo(finalStartDay) >= 0 && order.getCreatedDate().compareTo(finalEndDay) <= 0).toList();
+
         if(orders.isEmpty()){
             System.err.println("Not found order !");
         }else {
@@ -237,6 +289,13 @@ public class OrderFeature implements ICRUD <Order> {
             if(orders.get(indexOrder).getStatus() == 1){
                 orders.get(indexOrder).setStatus(0);
                 IMethod.saveDatabase(IMethod.fileOrder,orders);
+                List<Product> products = IMethod.listProduct();
+                for(ProductCart productCart : orders.get(indexOrder).getCarts()){
+                    String productName = productCart.getProductName();
+                    int indexProduct = products.stream().map(Product::getProductName).toList().indexOf(productName);
+                    products.get(indexProduct).setInventory(products.get(indexProduct).getInventory()+productCart.getQuantity());
+                }
+                IMethod.saveDatabase(IMethod.fileProduct,products);
                 System.out.println("Cancel order success !");
             }else {
                 System.err.println("Cannot cancel this order when order status =  " + orders.get(indexOrder).printStatus(orders.get(indexOrder).getStatus()));

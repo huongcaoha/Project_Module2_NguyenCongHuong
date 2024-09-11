@@ -3,6 +3,8 @@ package business.feature;
 import business.common.IMethod;
 import business.entity.Customer;
 import business.entity.Order;
+import business.entity.Product;
+import business.entity.ProductCart;
 import business.util.GetColor;
 
 import java.util.List;
@@ -76,7 +78,7 @@ public class HistoryOrder {
                 System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                 System.out.println("|           4. Search order by id             |           5. Search order by day a -> b        |         6. Search order by status       |");
                 System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|         7. See order detail by id           |                   8. Cancel order              |           9. Update status order        |");
+                System.out.println("|         7. See order detail by id           |                   8. Cancel order              |           9. Update status receive      |");
                 System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
 
                 int choice = IMethod.getNumber("Enter choice : ");
@@ -129,6 +131,13 @@ public class HistoryOrder {
                             if(orders1.get(indexOrder).getStatus() == 1){
                                 orders1.get(indexOrder).setStatus(0);
                                 IMethod.saveDatabase(IMethod.fileOrder,orders1);
+                                List<Product> products = IMethod.listProduct();
+                                for(ProductCart productCart : orders1.get(indexOrder).getCarts()){
+                                    String productName = productCart.getProductName();
+                                    int indexProduct = products.stream().map(Product::getProductName).toList().indexOf(productName);
+                                    products.get(indexProduct).setInventory(products.get(indexProduct).getInventory()+productCart.getQuantity());
+                                }
+                                IMethod.saveDatabase(IMethod.fileProduct,products);
                                 System.out.println("Cancel order success !");
                             }else {
                                 System.err.println("Cannot cancel order because order status is : " + orders1.get(indexOrder).printStatus(orders1.get(indexOrder).getStatus()));

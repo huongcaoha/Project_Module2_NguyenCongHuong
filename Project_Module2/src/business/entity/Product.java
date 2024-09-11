@@ -187,13 +187,19 @@ public class Product implements Serializable {
     }
 
     private void inputProductName(Scanner scanner) {
+        List<Product> products = IMethod.listProduct();
         while (true){
             System.out.println("Enter product name : ");
             this.productName = scanner.nextLine().trim();
-            if(productName.length() == 0){
+            if(productName.isEmpty()){
                 System.err.println("Product name cannot be left blank !");
             }else {
-                break;
+                int indexProductName = products.stream().map(Product::getProductName).toList().indexOf(productName);
+                if(indexProductName == -1){
+                    break;
+                }else {
+                    System.err.println("Product name existed !");
+                }
             }
         }
     }

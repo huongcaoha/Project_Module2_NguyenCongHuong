@@ -36,7 +36,6 @@ public class ProductCart implements Serializable {
         this.totalMoney = totalMoney;
     }
 
-
     public int getIdProductCart(){
         List<ProductCart> arr = IMethod.listProductCart();
         if(!arr.isEmpty()){
