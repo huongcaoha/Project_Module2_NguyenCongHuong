@@ -16,7 +16,7 @@ public class Login {
         String customerName ;
         while (true){
             System.out.println("Enter username : ");
-            customerName = scanner.nextLine().trim();
+            customerName = scanner.nextLine().replaceAll("\\s+","");
             if(customerName.isEmpty()){
                 System.err.println("Cannot be left blank !");
             }else {
