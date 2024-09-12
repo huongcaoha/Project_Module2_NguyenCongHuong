@@ -284,7 +284,7 @@ public class OrderFeature implements ICRUD <Order> {
         if(indexOrder == -1){
             System.err.println("Not found id order ! ");
         }else {
-            if(orders.get(indexOrder).getStatus() == 1){
+            if(orders.get(indexOrder).getStatus() != 4){
                 orders.get(indexOrder).setStatus(0);
                 IMethod.saveDatabase(IMethod.fileOrder,orders);
                 List<Product> products = IMethod.listProduct();
