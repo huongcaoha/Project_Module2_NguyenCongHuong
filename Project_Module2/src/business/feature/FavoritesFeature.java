@@ -22,7 +22,7 @@ public class FavoritesFeature {
                 int skip = (currentPage -1 ) * itemPerPage ;
                 int size = products.size();
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|                                                 LIST PRODUCT FAVORITES                                             |");
+                System.out.println("|                                                 "+GetColor.GREEN+"LIST PRODUCT FAVORITES"+GetColor.RESET+"                                             |");
                 System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━┓");
                 System.out.printf("| %-3s | %-28s | %-3s | %-13s | %-18s | %-8s | %-7s | %-13s |\n","ID","Product Name","-%","Final Price","Size","Color","CateID","Created Date");
                 System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━┻━━━━━━━━━━━━━━━┛");

@@ -3,6 +3,7 @@ package presentation.managementSystem;
 import business.common.IMethod;
 import business.entity.Product;
 import business.feature.ProductFeature;
+import business.util.GetColor;
 
 import java.util.List;
 
@@ -11,7 +12,9 @@ public class ProductManagement {
         String fileName = "listProduct.txt";
         ProductFeature productFeature = new ProductFeature();
         while (true){
-            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━ PRODUCTS MANAGEMENT ━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|                                                  "+ GetColor.GREEN+"PRODUCT MANAGEMENT"+GetColor.RESET+"                                                  |");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("|                              |                            |                           |                              |");
             System.out.println("|   1. Display list products   |     2. Add new product     |    3. Update product      |   4. Search product by id    |");
             System.out.println("|                              |                            |                           |                              |");

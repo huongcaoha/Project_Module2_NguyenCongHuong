@@ -3,6 +3,7 @@ package presentation.managementSystem;
 import business.common.IMethod;
 import business.entity.Category;
 import business.feature.CategoryFeature;
+import business.util.GetColor;
 
 import java.util.List;
 
@@ -11,7 +12,9 @@ public class CategoriesManagement {
         String fileName = "listCategory.txt";
         CategoryFeature categoryFeature = new CategoryFeature();
         while (true){
-            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━ CATEGORIES MANAGEMENT ━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|                                                 "+ GetColor.GREEN+"CATEGORIES MANAGEMENT"+GetColor.RESET+"                                                |");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|      1. Display list categories        |          2. Add categories         |          3. Update categories          |");
             System.out.println("|                                        |                                    |                                        |");

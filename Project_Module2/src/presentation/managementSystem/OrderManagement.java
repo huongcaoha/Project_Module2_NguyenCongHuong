@@ -3,6 +3,7 @@ package presentation.managementSystem;
 import business.common.IMethod;
 import business.entity.Order;
 import business.feature.OrderFeature;
+import business.util.GetColor;
 
 import java.util.List;
 
@@ -11,7 +12,9 @@ public class OrderManagement {
         OrderFeature orderFeature = new OrderFeature();
         String fileName = "listOrder.txt";
         while (true){
-            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ORDER MANAGEMENT ━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|                                                            "+ GetColor.GREEN+"ORDER MANAGEMENT"+GetColor.RESET+"                                                            |");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("|                               |                                     |                                   |                              |");
             System.out.println("|      1. Display list orders   |       2. Search order by id         |      3. Search order by status    |  4. See order detail by id   |");
             System.out.println("|                               |                                     |                                   |                              |");

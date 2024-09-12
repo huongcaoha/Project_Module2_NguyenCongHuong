@@ -27,7 +27,7 @@ public class CategoryFeature implements ICRUD <Category> {
         }else {
            while (true){
                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-               System.out.println("|                                   LIST CATEGORIES                                 |");
+               System.out.println("|                                   "+GetColor.GREEN+"LIST CATEGORIES"+GetColor.RESET+"                                 |");
                System.out.println("┏━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓");
                System.out.printf("| %-8s | %-38s | %-8s | %-18s |\n" ,"ID" , "Category Name" , "Status","createdDate");
                System.out.println("┗━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛");

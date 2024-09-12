@@ -2,6 +2,7 @@ package presentation.managementSystem;
 
 import business.common.IMethod;
 import business.entity.*;
+import business.util.GetColor;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -34,7 +35,7 @@ public class StatisticalManagement {
                 .toList().stream().map(Order::getTotalMoney).reduce((double) 0,(pre, current) -> pre + current);
         while (true){
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-            System.out.println("|                                                     STATISTICAL                                                      |");
+            System.out.println("|                                                     "+ GetColor.GREEN+"STATISTICAL"+GetColor.RESET+"                                                      |");
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|                                        |                                    |                                        |");
@@ -56,9 +57,9 @@ public class StatisticalManagement {
             switch (choice){
                 case 1 : {
                     int currentYear = LocalDate.now().getYear();
-                    String title = "Year : " + currentYear ;
+                    String title = GetColor.GREEN+"Year : " + currentYear + GetColor.RESET ;
                     System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                    System.out.printf("|                                                 %15s                                                      |\n",title);
+                    System.out.printf("|                                                 %15s                                                          |\n",title);
                     System.out.println("┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
                     System.out.println("|    Month          |     Total order     |   Total order cancel   |   Total order success  |        Total money       |");
                     System.out.println("|━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━|");

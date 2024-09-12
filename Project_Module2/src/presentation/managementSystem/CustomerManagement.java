@@ -4,6 +4,7 @@ import business.common.IMethod;
 import business.entity.Customer;
 import business.entity.Role;
 import business.feature.CustomerFeature;
+import business.util.GetColor;
 import presentation.run.Main;
 
 import java.util.List;
@@ -17,7 +18,9 @@ public class CustomerManagement {
             Login.main(args);
         }
         while (true){
-            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━ CUSTOMER MANAGEMENT ━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("|                                                  "+ GetColor.GREEN+"CUSTOMER MANAGEMENT"+GetColor.RESET+"                                                 |");
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("|                                        |                                    |                                        |");
             System.out.println("|      1. Display list customer          |      2. Update status customer     |           3. Delete customer           |");
             System.out.println("|                                        |                                    |                                        |");

@@ -189,8 +189,8 @@ public class ProductFeature implements ICRUD <Product> {
                 break;
             }
         }
-        String finalSearch = search;
-        List<Product> rs = products.stream().filter(product -> product.getProductName().contains(finalSearch) || product.getDescription().contains(finalSearch)).toList();
+        String finalSearch = search.toLowerCase();
+        List<Product> rs = products.stream().filter(product -> product.getProductName().toLowerCase().contains(finalSearch) || product.getDescription().toLowerCase().contains(finalSearch)).toList();
         if(rs.isEmpty()){
             System.err.println("List product empty or not found name product !");
         }else {

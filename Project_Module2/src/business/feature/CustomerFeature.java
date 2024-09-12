@@ -24,7 +24,7 @@ public class CustomerFeature implements ICRUD <Customer> {
         }else {
             while (true){
                 System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("|                                                             LIST CUSTOMER                                                               |");
+                System.out.println("|                                                             "+GetColor.GREEN+"LIST CUSTOMER"+GetColor.RESET+"                                                               |");
                 System.out.println("┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┓");
                 System.out.printf("[ %-3s | %-28s | %-8s | %-13s | %-13s | %-28s | %-8s | %-13s ]\n" , "ID","Username","Gender","Birthday","Phone Number","Email","Status","Created Date");
                 System.out.println("┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━┛");
